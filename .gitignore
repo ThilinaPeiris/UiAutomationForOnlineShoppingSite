@@ -180,5 +180,9 @@ Logs/*.log
 #Reports
 Reports/*.html
 
+# WebDrivers
+**/chromedriver*
+**/geckodriver*
+**/msedgedriver*
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,intellij+all,maven,java
