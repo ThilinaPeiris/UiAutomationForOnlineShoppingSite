@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="SmokeTestSuite" verbose="1" parallel="false">
+    <test name="SmokeTest">
+        <classes>
+            <class name="com.bmsoft.tests.TTerms">
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="FunctionalTestSuite" verbose="1" parallel="false">
+    
+    <listeners>
+        <listener class-name="com.bmsoft.utilities.Listeners"/>
+    </listeners>
+    
+    <test name="FunctionalTest">
+        <classes>
+            <class name="com.bmsoft.tests.TTerms"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,8 @@
+
+RUNNING THE TESTS
+-----------------
+
+* To run all the tests included in FunctionalTests profile :
+
+    mvn test -PFunctionalTests
+

@@ -1,0 +1,1 @@
+Test Failures Screenshots will be added to this folder.

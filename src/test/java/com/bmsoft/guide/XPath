@@ -1,0 +1,86 @@
+******************************************* XPath ****************************************************************
+
+**Absolute XPath
+    It is a direct way to locate an element.
+    It is very brittle.
+    Starts with single slash “/” that means starting to search from the root.
+        Example: /html/body/div[2]/div/div[2]/div[1]/div[2]/form/div/input
+
+**Relative XPath
+    Starts from the middle of the HTML DOM.
+    Starts with a double slash “//” that means it can start to search anywhere in the DOM structure.
+    Shorter than Absolute XPath.
+    Less fragile.
+        Example: //div[@class=’form-group’]//input[@id=’user-message’]
+
+**standard syntax for creating XPath.
+    Xpath=//Tag_name[@attribute_name=’value’]
+
+**Selecting Nodes / Selecting Unknown Nodes
+    Expression	Description
+    nodename	Selects all nodes with the name "nodename"
+    /	        Selects from the root node
+    //	        Selects nodes in the document from the current node that match the selection no matter where they are
+    .	        Selects the current node
+    ..	        Selects the parent of the current node
+    @	        Selects attributes
+    *	        Matches any element node
+    @*	        Matches any attribute node
+
+**Contains()
+    Xpath=//a[contains(text(),'here')]  -------------------> In the this expression,
+    --we have taken the "text" of the link as an attribute and 'here' as a partial value as shown in the below screenshot.
+    --This will find the link ('here') as it displays the text 'here'.
+
+    Xpath=//*[contains(@href,'guru99.com')]
+
+**OR AND
+    Xpath=//*[@type='submit' or @name='btnReset']
+    Xpath=//input[@type='submit' and @name='btnLogin']
+
+**Start-with()
+    Xpath=//label[starts-with(@id,'message')] -----------------> In the this expression,
+    --there are two elements with an id starting "message"(i.e., 'User-ID must not be blank' & 'Password must not be blank').
+    --In below example, XPath finds those element whose 'ID' starting with 'message'.
+
+**Text()
+    Xpath=//td[text()='UserID']
+
+**XPath Type    : Functions
+    Node set    : last(), position(), count(), id(), local-name(), namespace-uri(), name()
+    String      : string(), concat(), starts-with(), contains(), substring-before(), substring-after(), substring(), string-length(), normalize-space(), translate()
+    Boolean     : boolean(), not(), true(), false(), lang()
+    Number      : number(), sum(), floor(), ceiling(), round()
+
+**XPath Axes methods
+    a)Following: This method selects all the elements in the HTML document from the current node. Below is an example.
+        Xpath=//*[@type=’password’]//following::input
+        Xpath=//*[@type=’password’]//following::input[2]
+
+    b) Ancestor: This method selects all the ancestors’ element such as grandparent, parent, etc. from the current node.
+       Below is an example.
+        Xpath=//*//ancestor::p
+        Xpath=//*//ancestor::div [2]
+
+    c) Child: This method selects all the children elements from the current node. Below is an example.
+        Xpath=//*[@id=’navigation-list’]/child::li
+        Xpath=//*[@id=’navigation-list’]/child::li[2]
+
+    d) Preceding: This method selects all the nodes that come before the current node. Below is an example.
+        Xpath=//*[@type=’text’]//preceding::input
+        Xpath=//*[@type=’text’]//preceding::input[3]
+
+    e) Following-sibling: This method Select the following siblings from the context node.
+       Siblings are located at the same level of the current. Below is an example.
+         xpath=//*[@type=’text’]//following-sibling::input
+
+    f) Parent: This method selects the parent of the current node. Below is an example.
+        Xpath=//*[@id=’soft-test-class’]//parent::div
+        Xpath=//*[@id=’soft-test-class’]//parent::div[1]
+
+    g) Self: This method selects the current node. Below is an example.
+        Xpath =//*[@type=’text’]//self::input
+
+    h) Descendant: This method selects the descendants of the current. Below is an example.
+        Xpath=//*[@id=’soft-test-class’]//descendant::a
+        Xpath=//*[@id=’soft-test-class’]//descendant::a[1]

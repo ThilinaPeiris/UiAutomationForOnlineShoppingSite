@@ -1,0 +1,32 @@
+XPath-Axes
+
+Index	        Axis	            Description
+1)	            ancestor	        It specifies the ancestors of the current nodes which include the parents up to the root node.
+2)	            ancestor-or-self	It specifies the current node and its ancestors.
+3)	            attribute	        It specifies the attributes of the current node.
+4)	            child	            It specifies the children of the current node.
+5)	            descendant	        It specifies the descendants of the current node i.e. the node's children up to the leaf node(no more children).
+6)	            descendant-or-self	It specifies the current node and it's descendants.
+7)	            following	        It specifies all nodes that come after the current node.
+8)	            following-sibling	It specifies the following siblings of the context node. Siblings are at the same level as the current node and share it's parent.
+9)	            namespace	        It specifies the namespace of the current node.
+10)	            parent	            It specifies the parent of the current node.
+11)	            preceding	        It specifies all nodes that come before the current node (i.e. before it's opening tag).
+12)	            self	            It specifies the current node.
+
+
+Examples
+
+Example	                    Result
+child::book	                Selects all book nodes that are children of the current node
+attribute::lang	            Selects the lang attribute of the current node
+child::*	                Selects all element children of the current node
+attribute::*	            Selects all attributes of the current node
+child::text()	            Selects all text node children of the current node
+child::node()	            Selects all children of the current node
+descendant::book	        Selects all book descendants of the current node
+ancestor::book	            Selects all book ancestors of the current node
+ancestor-or-self::book	    Selects all book ancestors of the current node - and the current as well if it is a book node
+child::*/child::price	    Selects all price grandchildren of the current node
+
+Read XPath File..
