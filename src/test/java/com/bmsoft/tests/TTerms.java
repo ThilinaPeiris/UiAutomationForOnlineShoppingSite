@@ -47,8 +47,19 @@ public class TTerms extends BaseTest {
 
     @Test
     public void tPageTitle() {
+        //Assert.fail();
+    }
+
+    @Test
+    public void tPageTitle2() {
         Assert.fail();
     }
+
+    @Test
+    public void tPageTitl3e() {
+        //Assert.fail();
+    }
+
 
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException

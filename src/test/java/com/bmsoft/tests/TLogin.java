@@ -61,6 +61,7 @@ public class TLogin extends BaseTest {
 
         //verification that user is successfully logged in to the system
         Assert.assertTrue(pHome.islogoutLinkIsDisplaying());
+        pLogin.setTestResult(1, 4);
     }
 
     @Test
@@ -75,6 +76,7 @@ public class TLogin extends BaseTest {
 
         //verification that login error msg is showing..
         Assert.assertTrue(pLogin.isusernamePasswordValidationMsgSHowing());
+        pLogin.setTestResult(2, 4);
     }
 
 

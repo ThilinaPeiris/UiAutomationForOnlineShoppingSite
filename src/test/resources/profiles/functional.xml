@@ -8,7 +8,9 @@
     
     <test name="FunctionalTest">
         <classes>
+            <class name="com.bmsoft.tests.TLogin"/>
             <class name="com.bmsoft.tests.TTerms"/>
         </classes>
     </test>
+
 </suite>
