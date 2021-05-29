@@ -5,5 +5,3 @@ RUNNING THE TESTS
 * To run all the tests included in FunctionalTests profile :
 
     mvn test -PFunctionalTests
-
-Github token: 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

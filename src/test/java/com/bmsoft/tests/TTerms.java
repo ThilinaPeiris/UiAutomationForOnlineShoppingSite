@@ -29,13 +29,10 @@ public class TTerms extends BaseTest {
         try {
 
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
-
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
             commonOpObj = new CommonOp(driver);
-
             ptermsObj = new PTerms(driver, commonOpObj);
             phomeObj = new PHome(driver, commonOpObj);
-
             driver.manage().window().maximize();
 
         } catch (Exception e) {
@@ -52,16 +49,6 @@ public class TTerms extends BaseTest {
     public void tPageTitle() {
         Assert.fail();
     }
-
-    @Test
-    @Ignore
-    public void tPageTitle1() {
-    }
-
-    @Test
-    public void tPageTitle2() {
-    }
-
 
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
