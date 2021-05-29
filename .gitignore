@@ -185,4 +185,7 @@ Reports/*.html
 **/geckodriver*
 **/msedgedriver*
 
+#Reports
+test-output/
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,intellij+all,maven,java
