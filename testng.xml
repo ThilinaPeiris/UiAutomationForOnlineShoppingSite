@@ -8,7 +8,6 @@
 
     <test name="Test">
         <classes>
-            <class name="com.bmsoft.tests.TTerms"/>
             <class name="com.bmsoft.tests.THome"/>
         </classes>
     </test>

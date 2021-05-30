@@ -11,18 +11,14 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-public class THome extends BaseTest {
-
+public class TSearch extends BaseTest {
     private static final Logger LOGGER = LogManager.getLogger(THome.class.getName());
 
     private WebDriver driver;
@@ -30,15 +26,19 @@ public class THome extends BaseTest {
     private PHome phomeObj;
     private PLogin ploginObj;
 
+
     @BeforeClass
     public void setUpClass() {
         try {
 
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
+
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
             commonOpObj = new CommonOp(driver);
+
             phomeObj = new PHome(driver, commonOpObj);
-            ploginObj = new PLogin(driver, commonOpObj);
+            ploginObj = new PLogin(driver,commonOpObj);
+
             driver.manage().window().maximize();
 
 
@@ -50,26 +50,31 @@ public class THome extends BaseTest {
     @BeforeMethod
     public void setUpMethod() {
         driver.get(baseUrl);
-    }
-
-    @Test
-    public void tc_01(){
+        //click login link
         phomeObj.clickLoginbtn();
-        ploginObj.enterEmailAddress("thihari@gmail.com");
-        ploginObj.enterPassword("09876");
+        ploginObj.enterEmailAddress(email);
+        ploginObj.enterPassword(password);
         ploginObj.clickLogin();
-        phomeObj.clickLogOutbtn();
-
     }
-
-    @Test
-    public void tselectHome() {
+    //T13
+    @Test(priority = 1)
+    public void tSearchProduct() {
         phomeObj.selectHome();
+        //search book
+        phomeObj.searchField("Book");
     }
-
-
-
-
+    //T14 - invalid
+    @Test(priority = 1)
+    public void tInvalidSearchProduct() {
+        phomeObj.selectHome();
+        //search invalid value
+        phomeObj.searchField("1234");
+        if (driver.getPageSource().contains("No Product Found")) {
+            System.out.println("Text is present");
+        } else {
+            System.out.println("Text is absent");
+        }
+    }
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
     {
@@ -82,11 +87,13 @@ public class THome extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
 
     }
 
     @AfterClass
     public void tearDownClass() {
-            driver.quit();
+        driver.quit();
     }
 }

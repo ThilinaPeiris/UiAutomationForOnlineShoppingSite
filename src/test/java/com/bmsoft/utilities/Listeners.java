@@ -49,6 +49,7 @@ public class Listeners extends TestListenerAdapter
     {
         logger=extent.createTest(tr.getName()); // create new entry in th report
         logger.log(Status.PASS,MarkupHelper.createLabel(tr.getName(),ExtentColor.GREEN)); // Test is passed
+        setTestStatus("PASSED");
     }
 
     public void onTestFailure(ITestResult tr) {
@@ -64,17 +65,37 @@ public class Listeners extends TestListenerAdapter
                         + "</details></br></br> Screenshot is below:" ,
                         MediaEntityBuilder.createScreenCaptureFromPath("../Screenshots/"+tr.getName()+".png").build());
 
+        setTestStatus("FAILED");
+
     }
 
     public void onTestSkipped(ITestResult tr)
     {
         logger=extent.createTest(tr.getName()); // create new test in report
         logger.log(Status.SKIP,MarkupHelper.createLabel(tr.getName(),ExtentColor.ORANGE));
+
+        setTestStatus("SKIPPED");
     }
 
     public void onFinish(ITestContext testContext)
     {
         extent.flush();
+    }
+
+    public void setTestStatus(String status){
+
+        int row = ExcelUtil.rowNumber;
+        int col = ExcelUtil.columnNumber;
+
+        //to avoid corrupting the excel test data file
+        if(row==0 && col==0)
+            return;
+
+        ExcelUtil.setCellData(status, row , col );
+
+        //to avoid corrupting the excel test data file
+        ExcelUtil.rowNumber = 0;
+        ExcelUtil.columnNumber = 0;
     }
 
 }

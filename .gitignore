@@ -180,9 +180,27 @@ Logs/*.log
 #Reports
 Reports/*.html
 
-#WebDrivers
+# WebDrivers
 **/chromedriver*
 **/geckodriver*
 **/msedgedriver*
+
+#Reports
+test-output/
+
+### MicrosoftOffice ###
+*.tmp
+
+# Word temporary
+~$*.doc*
+
+# Word Auto Backup File
+Backup of *.doc*
+
+# Excel temporary
+~$*.xls*
+
+# Excel Backup File
+*.xlk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,intellij+all,maven,java
