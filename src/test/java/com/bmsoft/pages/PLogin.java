@@ -16,32 +16,38 @@ public class PLogin {
         this.commonOpObj = commonOpObj;
     }
 
-    private final By usernameField = By.id("exampleInputEmail1");
-    private final By passwordField = By.id("exampleInputPassword1");
-    private final By loginBtn = By.xpath("//button[@name='login']");
+    //locators for emailAddress, password, loginBtn & ForgotPassword
+    private By emailAddress = By.name("email");
+    private By password = By.name("password");
+    private By loginBtn = By.name("login");
+    private By forgotPW = By.xpath("//a[contains(text(),'Forgot your Password?')]");
     private final By usernamePasswordValidationMsg = By.xpath("//span[contains(text(),'Invalid email id or Password')]");
 
-    private void setUsernameField(String username){
-        driver.findElement(usernameField).sendKeys(username);
+
+    //methods to enter email Address
+    public void enterEmailAddress(String uemail){
+        driver.findElement(emailAddress).sendKeys(uemail);
     }
 
-    private void setPasswordField(String password){
-        driver.findElement(passwordField).sendKeys(password);
+    //method to enter password
+    public void enterPassword(String pass){
+        driver.findElement(password).sendKeys(pass);
     }
 
-    public void enterUserNameAndPassword(String username, String passwrod){
-        setUsernameField(username);
-        setPasswordField(passwrod);
-    }
-
-    public void clickOnLoginBtn(){
+    //method to click login button
+    public void clickLogin() {
         driver.findElement(loginBtn).click();
     }
 
-    /*public void login(){
-        enterUserNameAndPassword();
-        clickOnLoginBtn();
+    //method to click forgot your password link
+    public void clickForgotPassword() {
+        driver.findElement(forgotPW).click();
+    }
+/*
+    public String getErrorMessageText(){
+        return lblErrorMessage.getText();
     }*/
+
 
     public boolean isusernamePasswordValidationMsgSHowing(){
         return commonOpObj.waitUntilElementvisibilityOf(usernamePasswordValidationMsg, 5).isDisplayed();

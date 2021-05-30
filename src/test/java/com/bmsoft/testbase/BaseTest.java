@@ -8,9 +8,9 @@ import java.util.Properties;
 
 public class BaseTest {
 
-    protected static String baseUrl, browser;
+    protected static String baseUrl, browser, email, password;
     protected static long implicitWaitTimeout;
-    private Properties props;
+    protected Properties props;
 
     public BaseTest() {
 
@@ -23,6 +23,8 @@ public class BaseTest {
             baseUrl = props.getProperty("baseUrl");
             browser = props.getProperty("defaultBrowser");
             implicitWaitTimeout = Long.parseLong(props.getProperty("implicitWaitTimeout"));
+            email = props.getProperty("email");
+            password = props.getProperty("password");
 
         } catch (Exception e) {
             e.printStackTrace();

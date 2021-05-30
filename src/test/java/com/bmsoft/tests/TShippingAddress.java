@@ -1,39 +1,47 @@
 package com.bmsoft.tests;
 
-import com.bmsoft.pages.PHome;
-import com.bmsoft.pages.PTerms;
+import com.bmsoft.pages.*;
 import com.bmsoft.testbase.BaseTest;
 import com.bmsoft.utilities.CommonOp;
 import com.bmsoft.utilities.SetupDriver;
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.io.FileUtils;
 
-public class TTerms extends BaseTest {
+public class TShippingAddress extends BaseTest {
+    private static final Logger LOGGER = LogManager.getLogger(TShippingAddress.class.getName());
 
     private WebDriver driver;
     private CommonOp commonOpObj;
-    private PTerms ptermsObj;
     private PHome phomeObj;
+    private PLogin ploginObj;
+    private PShippingAddress pShippingAddressObj;
+
 
     @BeforeClass
     public void setUpClass() {
         try {
 
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
+
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
             commonOpObj = new CommonOp(driver);
-            ptermsObj = new PTerms(driver, commonOpObj);
+
             phomeObj = new PHome(driver, commonOpObj);
+            ploginObj = new PLogin(driver, commonOpObj);
+            pShippingAddressObj = new PShippingAddress(driver, commonOpObj);
+
             driver.manage().window().maximize();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,24 +50,27 @@ public class TTerms extends BaseTest {
 
     @BeforeMethod
     public void setUpMethod() {
+
         driver.get(baseUrl);
+
+        phomeObj.clickLoginbtn();
+        ploginObj.enterEmailAddress(email);
+        ploginObj.enterPassword(password);
+        ploginObj.clickLogin();
     }
 
     @Test
-    public void tPageTitle() {
-        //Assert.fail();
+    public void updateShippingAddress(){
+        phomeObj.clickMyAccountTab();
+        pShippingAddressObj.clickShippingBillingAddressSideMenuBar();
+        pShippingAddressObj.clickShippingAddressTab();
+        pShippingAddressObj.enterShippingAddress("456, Colombo 8");
+        pShippingAddressObj.enterShippingState("Colombo 8");
+        pShippingAddressObj.enterShippingCity("Colombo 8");
+        pShippingAddressObj.enterShippingPincode("12332");
+        pShippingAddressObj.clickUpdateButton();
+        pShippingAddressObj.clickOkAlert();
     }
-
-    @Test
-    public void tPageTitle2() {
-        Assert.fail();
-    }
-
-    @Test
-    public void tPageTitl3e() {
-        //Assert.fail();
-    }
-
 
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
