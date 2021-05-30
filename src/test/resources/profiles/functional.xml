@@ -23,6 +23,7 @@
             <class name="com.bmsoft.tests.TFurniture"/>
             <class name="com.bmsoft.tests.TLeftNavigation"/>
             <class name="com.bmsoft.tests.TSearch"/>
+            <class name="com.bmsoft.tests.TMyCart"/>
         </classes>
     </test>
 

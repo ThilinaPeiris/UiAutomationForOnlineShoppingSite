@@ -4,6 +4,7 @@ import com.bmsoft.utilities.CommonOp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.apache.logging.log4j.LogManager;
@@ -69,6 +70,7 @@ public class PHome {
     private By searchField = By.xpath("//input[@class='search-field']");
     private By submitBtn = By.xpath("//button[@type='submit']");
     private By leftNavBook = By.xpath("//nav/ul/li/a[@href='category.php?cid=3']");
+    private By randomProductAddToCart = By.xpath("//a[@href=\"index.php?page=product&action=add&id=1\"]");
 
     //select Home category
     public void selectHome() {
@@ -87,5 +89,11 @@ public class PHome {
         driver.findElement(leftNavBook).click();
     }
 
+    public void clickOnRandomProductAddtoCartLink(){
+        WebElement randomProduct = driver.findElement(randomProductAddToCart);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(randomProduct).click().build().perform();
+        commonOpObj.Sleep(500);
+    }
 
 }
