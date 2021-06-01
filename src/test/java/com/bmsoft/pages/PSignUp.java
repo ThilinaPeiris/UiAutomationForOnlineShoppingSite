@@ -1,8 +1,10 @@
 package com.bmsoft.pages;
 
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 public class PSignUp {
 
@@ -52,5 +54,37 @@ public class PSignUp {
     public void clicksignup(){
         driver.findElement(signUp).click();
     }
+
+    //method to verify please fill... for empty full name field
+    public String fullNamePleaseFillMsgVerification(){
+        return driver.findElement(fullName).getAttribute("validationMessage");
+    }
+
+    //method to verify please fill... for email empty address field
+    public String emailPleaseFillMsgVerification(){
+        return driver.findElement(emailAddress).getAttribute("validationMessage");
+    }
+
+    //method to verify please fill... for empty contact no field
+    public String contactNoPleaseFillMsgVerification(){
+        return driver.findElement(contactNo).getAttribute("validationMessage");
+    }
+
+    //method to verify please fill... for empty password field
+    public String passwordPleaseFillMsgVerification(){
+        return driver.findElement(password).getAttribute("validationMessage");
+    }
+
+    //method to verify please fill... for confirm empty password field
+    public String cPasswordPleaseFillMsgVerification(){
+        return driver.findElement(confirmPassword).getAttribute("validationMessage");
+    }
+
+    //to write the status to test file..
+    public void setTestResult(int row, int col){
+        ExcelUtil.rowNumber = row;
+        ExcelUtil.columnNumber = col;
+    }
+
 
 }

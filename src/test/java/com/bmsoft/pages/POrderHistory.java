@@ -9,7 +9,7 @@ public class POrderHistory {
     private CommonOp commonOpObj;
 
     private By orderHistorySideMenuBar = By.xpath("//a[@href='order-history.php']");
-    private By orderFirstRecord = By.xpath(" //*[@class=\"table table-bordered\"]/tbody/tr[1]");
+    private By orderFirstRecord = By.xpath("//*[@class=\"table table-bordered\"]/tbody/tr[1]");
     private By trackLink = By.linkText("Track");
     private By orderTrackingDetailWindow = By.className("fontpink2");
 
