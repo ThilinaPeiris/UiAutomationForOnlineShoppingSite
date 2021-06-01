@@ -95,7 +95,7 @@ public class TLogin extends BaseTest {
         ploginObj.clickLogin();
 
         //verification that user is successfully logged in to the system
-        String actual_msg=driver.findElement(By.linkText("Welcome -testuser")).getText();
+        String actual_msg=driver.findElement(By.linkText("Welcome -dhimatestnew")).getText();
         String expect= ExcelUtil.getCellData(1,3);
         Assert.assertEquals(actual_msg,expect);
 
