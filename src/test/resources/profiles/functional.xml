@@ -8,21 +8,21 @@
     
     <test name="FunctionalTest">
         <classes>
-            <class name="com.bmsoft.tests.TLogin"/>
+            <!--<class name="com.bmsoft.tests.TLogin"/>
             <class name="com.bmsoft.tests.THome"/>
             <class name="com.bmsoft.tests.TForgotPW"/>
             <class name="com.bmsoft.tests.TSignUp"/>
-            <class name="com.bmsoft.tests.TOrderTrack"/>
+            <class name="com.bmsoft.tests.TOrderTrack"/> -->
             <class name="com.bmsoft.tests.TMyProfile"/>
             <class name="com.bmsoft.tests.TChangePassword"/>
             <class name="com.bmsoft.tests.TBillingAddress"/>
             <class name="com.bmsoft.tests.TShippingAddress"/>
             <class name="com.bmsoft.tests.TOrderHistory"/>
             <class name="com.bmsoft.tests.TPaymentPendingOrder"/>
-            <class name="com.bmsoft.tests.TBooks"/>
+            <!--<class name="com.bmsoft.tests.TBooks"/>
             <class name="com.bmsoft.tests.TFurniture"/>
             <class name="com.bmsoft.tests.TLeftNavigation"/>
-            <class name="com.bmsoft.tests.TSearch"/>
+            <class name="com.bmsoft.tests.TSearch"/>-->
         </classes>
     </test>
 

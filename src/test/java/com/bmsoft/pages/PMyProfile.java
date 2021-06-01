@@ -1,15 +1,16 @@
 package com.bmsoft.pages;
 
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 public class PMyProfile {
     private WebDriver driver;
     private CommonOp commonOpObj;
 
- //   private By myAccountSideMenuBar = By.linkText("My Account");
     private By nameTextbox = By.id("name");
     private By contactNoTextbox = By.id("contactno");
     private By updateBtn = By.name("update");
@@ -19,15 +20,15 @@ public class PMyProfile {
         this.commonOpObj = commonOpObj;
     }
 
-   /* public void clickMyAccountSideMenuBar(){
-        driver.findElement(myAccountSideMenuBar).click();
-    }*/
+    public String verifyTitle(){
+        return driver.getTitle();
+    }
 
     public void clearValuesInNameTextbox(){
         driver.findElement(nameTextbox).clear();
     }
 
-    public void setName(String name){
+    public void enterName(String name){
         driver.findElement(nameTextbox).sendKeys(name);
     }
 
@@ -35,7 +36,7 @@ public class PMyProfile {
         driver.findElement(contactNoTextbox).clear();
     }
 
-    public void setContactNo(String telNo){
+    public void enterContactNo(String telNo){
         driver.findElement(contactNoTextbox).sendKeys(telNo);
     }
 
@@ -43,7 +44,22 @@ public class PMyProfile {
         driver.findElement(updateBtn).click();
     }
 
+    public String getAlertText(){
+        return driver.switchTo().alert().getText();
+    }
+
     public void clickOkAlert(){
         driver.switchTo().alert().accept();
     }
+
+    public String invalidMsgValidation(){
+        return driver.findElement(nameTextbox).getAttribute("validationMessage");
+    }
+
+    //To write the status to test file..
+    public void setTestResult(int row, int col){
+        ExcelUtil.rowNumber = row;
+        ExcelUtil.columnNumber = col;
+    }
+
 }

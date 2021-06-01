@@ -5,6 +5,7 @@ import com.bmsoft.pages.PHome;
 import com.bmsoft.pages.PLogin;
 import com.bmsoft.testbase.BaseTest;
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import com.bmsoft.utilities.SetupDriver;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -44,6 +46,8 @@ public class TChangePassword extends BaseTest {
 
             driver.manage().window().maximize();
 
+            ExcelUtil.setExcelFileSheet("Change Password");
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,16 +64,27 @@ public class TChangePassword extends BaseTest {
         ploginObj.clickLogin();
     }
 
+    //T07 - Update change password with valid values
     @Test
     public void changePassword(){
+
+        String currentPwdValue = ExcelUtil.getCellData(1,1);
+        String newPwdValue = ExcelUtil.getCellData(1, 2);
+        String confirmPwdValue = ExcelUtil.getCellData(1, 3);
+        String alertMessage = ExcelUtil.getCellData(1, 4);
+
+        pChangePasswordObj.setTestResult(1, 5);
+
         phomeObj.clickMyAccountTab();
-      //  pChangePasswordObj.clickMyAccountSideMenuBar();
         pChangePasswordObj.clickChangePwdTab();
-        pChangePasswordObj.enterCurrentPassword("abc123@#");
-        pChangePasswordObj.enterNewPassword("cba123@#");
-        pChangePasswordObj.enterConfirmPassword("cba123@#");
+        pChangePasswordObj.enterCurrentPassword(currentPwdValue);
+        pChangePasswordObj.enterNewPassword(newPwdValue);
+        pChangePasswordObj.enterConfirmPassword(confirmPwdValue);
         pChangePasswordObj.clickChangeButton();
+        String alertText = pChangePasswordObj.getAlertText();
         pChangePasswordObj.clickOkAlert();
+        Assert.assertEquals(alertMessage,alertText);
+
     }
 
     @AfterMethod
@@ -84,6 +99,9 @@ public class TChangePassword extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
+
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
 
     }
 

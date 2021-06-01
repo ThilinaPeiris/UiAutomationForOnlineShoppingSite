@@ -3,6 +3,7 @@ package com.bmsoft.tests;
 import com.bmsoft.pages.*;
 import com.bmsoft.testbase.BaseTest;
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import com.bmsoft.utilities.SetupDriver;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -42,6 +44,7 @@ public class TOrderHistory extends BaseTest {
 
             driver.manage().window().maximize();
 
+            ExcelUtil.setExcelFileSheet("Order History");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,8 +62,23 @@ public class TOrderHistory extends BaseTest {
         ploginObj.clickLogin();
     }
 
+    //T12 - Verify order history records page is visible
     @Test
-    public void updateShippingAddress(){
+    public void viewOrderHistoryRecordsPage(){
+
+        String pageTitle = ExcelUtil.getCellData(1, 1);
+
+        pOrderHistoryObj.setTestResult(1, 2);
+
+        phomeObj.clickMyAccountTab();
+        pOrderHistoryObj.clickOrderHistorySideMenuBar();
+        String title = pOrderHistoryObj.verifyTitle();
+        Assert.assertEquals(title, pageTitle);
+    }
+
+    //T14 - Track the orders
+    @Test
+    public void trackOrder(){
         phomeObj.clickMyAccountTab();
         pOrderHistoryObj.clickOrderHistorySideMenuBar();
         pOrderHistoryObj.viewOrderRecord();
@@ -79,6 +97,9 @@ public class TOrderHistory extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
+
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
 
     }
 

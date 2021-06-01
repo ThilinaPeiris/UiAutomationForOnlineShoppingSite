@@ -1,6 +1,7 @@
 package com.bmsoft.pages;
 
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -21,5 +22,11 @@ public class PPaymentPendingOrder {
 
     public String verifyTitle(){
         return driver.getTitle();
+    }
+
+    //To write the status to test file..
+    public void setTestResult(int row, int col){
+        ExcelUtil.rowNumber = row;
+        ExcelUtil.columnNumber = col;
     }
 }

@@ -1,6 +1,7 @@
 package com.bmsoft.pages;
 
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -53,7 +54,16 @@ public class PShippingAddress {
         driver.findElement(updateBtn).click();
     }
 
+    public String getAlertText(){
+        return driver.switchTo().alert().getText();
+    }
+
     public void clickOkAlert(){
         driver.switchTo().alert().accept();
+    }
+
+    public void setTestResult(int row, int col){
+        ExcelUtil.rowNumber = row;
+        ExcelUtil.columnNumber = col;
     }
 }

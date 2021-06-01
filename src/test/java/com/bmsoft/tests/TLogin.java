@@ -47,6 +47,7 @@ public class TLogin extends BaseTest {
     @BeforeMethod
     public void setUpMethod() {
         driver.get(baseUrl);
+        phomeObj.clickLoginbtn();
     }
 
 //    @Test

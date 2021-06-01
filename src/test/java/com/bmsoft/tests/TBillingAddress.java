@@ -3,6 +3,7 @@ package com.bmsoft.tests;
 import com.bmsoft.pages.*;
 import com.bmsoft.testbase.BaseTest;
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import com.bmsoft.utilities.SetupDriver;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -42,6 +44,8 @@ public class TBillingAddress extends BaseTest {
 
             driver.manage().window().maximize();
 
+            ExcelUtil.setExcelFileSheet("Billing Address");
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,16 +63,29 @@ public class TBillingAddress extends BaseTest {
         ploginObj.clickLogin();
     }
 
+    //T10 - Update billing address with valid values
     @Test
     public void updateBillingAddress(){
+
+        String billingAddressValue = ExcelUtil.getCellData(1,1);
+        String billingStateValue = ExcelUtil.getCellData(1, 2);
+        String billingCityValue = ExcelUtil.getCellData(1, 3);
+        String billingPincodeValue = ExcelUtil.getCellData(1, 4);
+        String alertMessage = ExcelUtil.getCellData(1, 5);
+
+        pBillingAddressObj.setTestResult(1, 6);
+
         phomeObj.clickMyAccountTab();
         pBillingAddressObj.clickShippingBillingAddressSideMenuBar();
-        pBillingAddressObj.enterBillingAddress("456, Colombo 8");
-        pBillingAddressObj.enterBillingState("Colombo 8");
-        pBillingAddressObj.enterBillingCity("Colombo 8");
-        pBillingAddressObj.enterBillingPincode("12332");
+        pBillingAddressObj.enterBillingAddress(billingAddressValue);
+        pBillingAddressObj.enterBillingState(billingStateValue);
+        pBillingAddressObj.enterBillingCity(billingCityValue);
+        pBillingAddressObj.enterBillingPincode(billingPincodeValue);
         pBillingAddressObj.clickUpdateButton();
+        String alertText = pBillingAddressObj.getAlertText();
         pBillingAddressObj.clickOkAlert();
+        Assert.assertEquals(alertMessage,alertText);
+
     }
 
     @AfterMethod
@@ -83,6 +100,9 @@ public class TBillingAddress extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
+
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
 
     }
 

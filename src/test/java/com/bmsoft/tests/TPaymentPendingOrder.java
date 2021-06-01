@@ -3,6 +3,7 @@ package com.bmsoft.tests;
 import com.bmsoft.pages.*;
 import com.bmsoft.testbase.BaseTest;
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import com.bmsoft.utilities.SetupDriver;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -44,6 +45,8 @@ public class TPaymentPendingOrder extends BaseTest {
 
             driver.manage().window().maximize();
 
+            ExcelUtil.setExcelFileSheet("Payment Pending Order");
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,22 +56,25 @@ public class TPaymentPendingOrder extends BaseTest {
     @BeforeMethod
     public void setUpMethod() {
         driver.get(baseUrl);
-    }
 
-    @Test(priority = 1)
-    public void successfulLogin() {
         phomeObj.clickLoginbtn();
         ploginObj.enterEmailAddress(email);
         ploginObj.enterPassword(password);
         ploginObj.clickLogin();
     }
 
-    @Test(priority = 2)
-    public void viewPaymentPendingOrder(){
+    //T15 - Verify Payment pending order records page
+    @Test
+    public void viewPaymentPendingOrderRecordsPage(){
+
+        String pageTitle = ExcelUtil.getCellData(1, 1);
+
+        pPaymentPendingOrderObj.setTestResult(1, 2);
+
         phomeObj.clickMyAccountTab();
         pPaymentPendingOrderObj.clickPaymentPendingOrderSideMenuBar();
         String title = pPaymentPendingOrderObj.verifyTitle();
-        Assert.assertEquals(title, "Pending Order History"); //actual result should be "Pending Order History"
+        Assert.assertEquals(title, pageTitle);
     }
 
     @AfterMethod
@@ -83,6 +89,9 @@ public class TPaymentPendingOrder extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
+
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
 
     }
 

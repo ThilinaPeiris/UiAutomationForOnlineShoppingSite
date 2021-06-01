@@ -3,6 +3,7 @@ package com.bmsoft.tests;
 import com.bmsoft.pages.*;
 import com.bmsoft.testbase.BaseTest;
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import com.bmsoft.utilities.SetupDriver;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -42,6 +44,7 @@ public class TShippingAddress extends BaseTest {
 
             driver.manage().window().maximize();
 
+            ExcelUtil.setExcelFileSheet("Shipping Address");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,17 +62,30 @@ public class TShippingAddress extends BaseTest {
         ploginObj.clickLogin();
     }
 
+    //T11 - Update shipping address with valid values
     @Test
     public void updateShippingAddress(){
+
+        String shippingAddressValue = ExcelUtil.getCellData(1,1);
+        String shippingStateValue = ExcelUtil.getCellData(1, 2);
+        String shippingCityValue = ExcelUtil.getCellData(1, 3);
+        String shippingPincodeValue = ExcelUtil.getCellData(1, 4);
+        String alertMessage = ExcelUtil.getCellData(1, 5);
+
+        pShippingAddressObj.setTestResult(1, 6);
+
         phomeObj.clickMyAccountTab();
         pShippingAddressObj.clickShippingBillingAddressSideMenuBar();
         pShippingAddressObj.clickShippingAddressTab();
-        pShippingAddressObj.enterShippingAddress("456, Colombo 8");
-        pShippingAddressObj.enterShippingState("Colombo 8");
-        pShippingAddressObj.enterShippingCity("Colombo 8");
-        pShippingAddressObj.enterShippingPincode("12332");
+        pShippingAddressObj.enterShippingAddress(shippingAddressValue);
+        pShippingAddressObj.enterShippingState(shippingStateValue);
+        pShippingAddressObj.enterShippingCity(shippingCityValue);
+        pShippingAddressObj.enterShippingPincode(shippingPincodeValue);
         pShippingAddressObj.clickUpdateButton();
+        String alertText = pShippingAddressObj.getAlertText();
         pShippingAddressObj.clickOkAlert();
+        Assert.assertEquals(alertMessage,alertText);
+
     }
 
     @AfterMethod
@@ -84,6 +100,9 @@ public class TShippingAddress extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
+
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
 
     }
 

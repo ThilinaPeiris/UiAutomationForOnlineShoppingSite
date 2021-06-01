@@ -1,6 +1,7 @@
 package com.bmsoft.pages;
 
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -8,8 +9,6 @@ public class PChangePassword {
     private WebDriver driver;
     private CommonOp commonOpObj;
 
-   // private By myAccountSideMenuBar = By.linkText("My Account");
- //   private By changePwdTab = By.cssSelector("a[href='#collapseTwo']");
    private By changePwdTab = By.xpath("//a[@href='#collapseTwo']");
     private By currentPwdTextBox = By.id("cpass");
     private By newPwdTextBox = By.id("newpass");
@@ -20,10 +19,6 @@ public class PChangePassword {
         this.driver = driver;
         this.commonOpObj = commonOpObj;
     }
-
-   /* public void clickMyAccountSideMenuBar(){
-        driver.findElement(myAccountSideMenuBar).click();
-    }*/
 
     public void clickChangePwdTab(){
         driver.findElement(changePwdTab).click();
@@ -45,8 +40,18 @@ public class PChangePassword {
         driver.findElement(changeBtn).click();
     }
 
+    public String getAlertText(){
+        return driver.switchTo().alert().getText();
+    }
+
     public void clickOkAlert(){
         driver.switchTo().alert().accept();
+    }
+
+    //To write the status to test file..
+    public void setTestResult(int row, int col){
+        ExcelUtil.rowNumber = row;
+        ExcelUtil.columnNumber = col;
     }
 
 }

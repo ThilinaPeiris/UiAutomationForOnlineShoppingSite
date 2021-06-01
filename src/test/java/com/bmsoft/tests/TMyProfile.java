@@ -5,6 +5,7 @@ import com.bmsoft.pages.PLogin;
 import com.bmsoft.pages.PMyProfile;
 import com.bmsoft.testbase.BaseTest;
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import com.bmsoft.utilities.SetupDriver;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -44,6 +46,8 @@ public class TMyProfile extends BaseTest {
 
             driver.manage().window().maximize();
 
+            ExcelUtil.setExcelFileSheet("My Profile");
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,18 +65,77 @@ public class TMyProfile extends BaseTest {
         ploginObj.clickLogin();
     }
 
+    //T02 - Verify my account page is visible
     @Test
-    public void updateMyProfileDetails(){
+    public void viewMyAccountPage(){
+
+        String pageTitle = ExcelUtil.getCellData(1,3);
+
+        pmyProfileObj.setTestResult(1, 6);
+
         phomeObj.clickMyAccountTab();
-      //  pmyProfileObj.clickMyAccountSideMenuBar();
-        pmyProfileObj.clearValuesInNameTextbox();
-        pmyProfileObj.setName("dhimatestnew");
-        pmyProfileObj.clearValuesInContactNoTextbox();
-        pmyProfileObj.setContactNo("0112987987");
-        pmyProfileObj.clickUpdateButton();
-        pmyProfileObj.clickOkAlert();
+        String title = pmyProfileObj.verifyTitle();
+        Assert.assertEquals(title, pageTitle);
     }
 
+    //T03 - Update my profile with valid values
+    @Test
+    public void updateMyProfileDetails(){
+
+        String nameValue = ExcelUtil.getCellData(2,1);
+        String contactNoValue = ExcelUtil.getCellData(2, 2);
+        String alertMessage = ExcelUtil.getCellData(2, 4);
+
+        pmyProfileObj.setTestResult(2, 6);
+
+        phomeObj.clickMyAccountTab();
+        pmyProfileObj.clearValuesInNameTextbox();
+        pmyProfileObj.enterName(nameValue);
+        pmyProfileObj.clearValuesInContactNoTextbox();
+        pmyProfileObj.enterContactNo(contactNoValue);
+        pmyProfileObj.clickUpdateButton();
+        String alertText = pmyProfileObj.getAlertText();
+        pmyProfileObj.clickOkAlert();
+        Assert.assertEquals(alertMessage,alertText);
+    }
+
+    //T04 - Update my profile with empty values
+    @Test
+    public void updateMyProfileWithoutDetails(){
+
+        String nameValue = ExcelUtil.getCellData(3,1);
+        String contactNoValue = ExcelUtil.getCellData(3, 2);
+        String formErrorMessage = ExcelUtil.getCellData(3, 5);
+
+        pmyProfileObj.setTestResult(3, 6);
+
+        phomeObj.clickMyAccountTab();
+        pmyProfileObj.clearValuesInNameTextbox();
+        pmyProfileObj.enterName(nameValue);
+        pmyProfileObj.clearValuesInContactNoTextbox();
+        pmyProfileObj.enterContactNo(contactNoValue);
+        pmyProfileObj.clickUpdateButton();
+        Assert.assertEquals(pmyProfileObj.invalidMsgValidation(),formErrorMessage);
+    }
+
+    //T05 - Update my profile without name field
+    @Test
+    public void updateMyProfileWithoutName(){
+
+        String nameValue = ExcelUtil.getCellData(4,1);
+        String contactNoValue = ExcelUtil.getCellData(4, 2);
+        String formErrorMessage = ExcelUtil.getCellData(4, 5);
+
+        pmyProfileObj.setTestResult(4, 6);
+
+        phomeObj.clickMyAccountTab();
+        pmyProfileObj.clearValuesInNameTextbox();
+        pmyProfileObj.enterName(nameValue);
+        pmyProfileObj.clearValuesInContactNoTextbox();
+        pmyProfileObj.enterContactNo(contactNoValue);
+        pmyProfileObj.clickUpdateButton();
+        Assert.assertEquals(pmyProfileObj.invalidMsgValidation(),formErrorMessage);
+    }
 
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
@@ -87,6 +150,8 @@ public class TMyProfile extends BaseTest {
             commonOpObj.Sleep(2000);
         }
 
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
     }
 
     @AfterClass
