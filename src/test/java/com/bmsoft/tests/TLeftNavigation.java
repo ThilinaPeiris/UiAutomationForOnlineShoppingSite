@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import java.io.File;
@@ -56,12 +57,16 @@ public class TLeftNavigation extends BaseTest {
     }
 
     //T15
-    @Test
+    @Test(priority = 1,description = "test case T15")
     public void tLeftNavigation() {
         phomeObj.selectHome();
         phomeObj.leftNavigation();
-
+        //assert
+        String title = phomeObj.validateProductTitle();
+        Assert.assertEquals(title,"Product Category");
     }
+
+
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
     {

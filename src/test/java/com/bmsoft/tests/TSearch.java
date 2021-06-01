@@ -4,6 +4,7 @@ import com.bmsoft.pages.PHome;
 import com.bmsoft.pages.PLogin;
 import com.bmsoft.testbase.BaseTest;
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import com.bmsoft.utilities.SetupDriver;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -40,6 +42,7 @@ public class TSearch extends BaseTest {
             ploginObj = new PLogin(driver,commonOpObj);
 
             driver.manage().window().maximize();
+            ExcelUtil.setExcelFileSheet("Search");
 
 
         } catch (Exception e) {
@@ -57,23 +60,34 @@ public class TSearch extends BaseTest {
         ploginObj.clickLogin();
     }
     //T13
-    @Test(priority = 1)
+    @Test(priority = 1,description = "test case T13")
     public void tSearchProduct() {
         phomeObj.selectHome();
         //search book
-        phomeObj.searchField("Book");
+        String search = ExcelUtil.getCellData(1,1);
+        phomeObj.searchField(search);
+        //assert
+        String title = phomeObj.validateProductTitle();
+        Assert.assertEquals(title,"Product Category");
+        phomeObj.setTestResult(1, 2);
     }
     //T14 - invalid
     @Test(priority = 1)
     public void tInvalidSearchProduct() {
         phomeObj.selectHome();
+        //assert
+        String title = phomeObj.validateProductTitle();
+        Assert.assertEquals(title,"Shopping Portal Home Page");
         //search invalid value
-        phomeObj.searchField("1234");
+        String invalidData = ExcelUtil.getCellData(2,1);
+        phomeObj.searchField(invalidData);
         if (driver.getPageSource().contains("No Product Found")) {
             System.out.println("Text is present");
         } else {
             System.out.println("Text is absent");
         }
+        phomeObj.setTestResult(2, 2);
+
     }
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
@@ -83,7 +97,6 @@ public class TSearch extends BaseTest {
             TakesScreenshot ts=(TakesScreenshot)driver;
             File source=ts.getScreenshotAs(OutputType.FILE); // capture screenshot file
             File target=new File(System.getProperty("user.dir")+"/Screenshots/"+result.getName()+".png");
-
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }

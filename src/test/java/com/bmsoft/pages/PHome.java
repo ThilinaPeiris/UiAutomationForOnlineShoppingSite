@@ -1,6 +1,7 @@
 package com.bmsoft.pages;
 
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -86,6 +87,13 @@ public class PHome {
     public void leftNavigation(){
         driver.findElement(leftNavBook).click();
     }
-
+    public String validateProductTitle(){
+        return driver.getTitle();
+    }
+    //to write the status to test file..
+    public void setTestResult(int row, int col){
+        ExcelUtil.rowNumber = row;
+        ExcelUtil.columnNumber = col;
+    }
 
 }

@@ -68,10 +68,9 @@ public class PBooks {
         driver.findElement(searchField).sendKeys("");
     }
 
-    /*
     public String validateProductTitle(){
         return driver.getTitle();
     }
-     */
+
 
 }
