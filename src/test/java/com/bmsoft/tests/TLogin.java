@@ -32,22 +32,27 @@ public class TLogin extends BaseTest {
 
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
+
             commonOpObj = new CommonOp(driver);
             ploginObj = new PLogin(driver, commonOpObj);
             phomeObj = new PHome(driver,commonOpObj);
+
             driver.manage().window().maximize();
 
-            ExcelUtil.setExcelFileSheet("Login");
+            ExcelUtil.setExcelFileSheet("LoginData");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
     @BeforeMethod
     public void setUpMethod() {
         driver.get(baseUrl);
+        phomeObj.clickLoginbtn();
     }
+
 
 //    @Test
 //    public void tLoginWithValidCredentials() {
@@ -80,8 +85,93 @@ public class TLogin extends BaseTest {
 //    }
 
     //valid email address & password
-    @Test(priority = 1)
+    @Test
     public void TC_09() throws InterruptedException {
+
+        ploginObj.setTestResult(1, 4);
+
+        ploginObj.enterEmailAddress(ExcelUtil.getCellData(1,1));
+        ploginObj.enterPassword(ExcelUtil.getCellData(1,2));
+        ploginObj.clickLogin();
+
+        //verification that user is successfully logged in to the system
+        String actual_msg=driver.findElement(By.linkText("Welcome -testuser")).getText();
+        String expect= ExcelUtil.getCellData(1,3);
+        Assert.assertEquals(actual_msg,expect);
+
+    }
+
+    //valid email address & invalid password
+    @Test
+    public void TC_10() throws InterruptedException{
+
+        ploginObj.setTestResult(2, 4);
+
+        ploginObj.enterEmailAddress(ExcelUtil.getCellData(2,1));
+        ploginObj.enterPassword(ExcelUtil.getCellData(2,2));
+        ploginObj.clickLogin();
+        Thread.sleep(3000);
+
+        //verification
+
+        // This will capture error message
+        String actual_msg=driver.findElement(By.xpath("//span[contains(text(),'Invalid email id or Password')]")).getText();
+        // Store message in variable
+        String expect= ExcelUtil.getCellData(2,3);
+        // Verify error message
+        Assert.assertEquals(actual_msg, expect);
+
+    }
+
+    //invalid email address & valid password
+    @Test
+    public void TC_11() throws InterruptedException{
+
+        ploginObj.setTestResult(3, 4);
+
+        ploginObj.enterEmailAddress(ExcelUtil.getCellData(3,1));
+        ploginObj.enterPassword(ExcelUtil.getCellData(3,2));
+        ploginObj.clickLogin();
+        Thread.sleep(3000);
+
+        //verification
+
+        // This will capture error message
+        String actual_msg=driver.findElement(By.xpath("//span[contains(text(),'Invalid email id or Password')]")).getText();
+        // Store message in variable
+        String expect=ExcelUtil.getCellData(3,3);
+        // Verify error message
+        Assert.assertEquals(actual_msg, expect);
+
+    }
+
+    //invalid email address & invalid password
+    @Test
+    public void TC_12() throws InterruptedException{
+
+        ploginObj.setTestResult(4, 4);
+
+        ploginObj.enterEmailAddress(ExcelUtil.getCellData(4,1));
+        ploginObj.enterPassword(ExcelUtil.getCellData(4,2));
+        ploginObj.clickLogin();
+        Thread.sleep(3000);
+
+        //verification
+
+        // This will capture error message
+        String actual_msg=driver.findElement(By.xpath("//span[contains(text(),'Invalid email id or Password')]")).getText();
+        // Store message in variable
+        String expect=ExcelUtil.getCellData(4,3);
+        // Verify error message
+        Assert.assertEquals(actual_msg, expect);
+
+    }
+
+/*
+    //valid email address & password
+    @Test
+    public void TC_09() throws InterruptedException {
+
         //Enter username & password
         ploginObj.enterEmailAddress("abc@gmail.com");
         ploginObj.enterPassword("abcde");
@@ -102,6 +192,7 @@ public class TLogin extends BaseTest {
     }
 
     //valid email address & invalid password
+
     @Test
     public void TC_10() throws InterruptedException{
         ploginObj.enterEmailAddress("abc@gmail.com");
@@ -112,7 +203,7 @@ public class TLogin extends BaseTest {
         //verification
 
         // This will capture error message
-        String actual_msg=driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/div/div[1]/form/span")).getText();
+        String actual_msg=driver.findElement(By.xpath("//span[contains(text(),'Invalid email id or Password')]")).getText();
         // Store message in variable
         String expect="Invalid email id or Password";
         // Verify error message
@@ -129,7 +220,7 @@ public class TLogin extends BaseTest {
         //verification
 
         // This will capture error message
-        String actual_msg=driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/div/div[1]/form/span")).getText();
+        String actual_msg=driver.findElement(By.xpath("//span[contains(text(),'Invalid email id or Password')]")).getText();
         // Store message in variable
         String expect="Invalid email id or Password";
         // Verify error message
@@ -146,13 +237,13 @@ public class TLogin extends BaseTest {
         //verification
 
         // This will capture error message
-        String actual_msg=driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/div/div[1]/form/span")).getText();
+        String actual_msg=driver.findElement(By.xpath("//span[contains(text(),'Invalid email id or Password')]")).getText();
         // Store message in variable
         String expect="Invalid email id or Password";
         // Verify error message
         Assert.assertEquals(actual_msg, expect);
     }
-
+*/
 
 
     @AfterMethod

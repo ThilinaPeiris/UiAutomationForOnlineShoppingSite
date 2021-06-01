@@ -1,8 +1,10 @@
 package com.bmsoft.pages;
 
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 public class PForgotPW {
     private WebDriver driver;
@@ -44,5 +46,21 @@ public class PForgotPW {
     //method to click change button
     public void clickChangeBtn(){
         driver.findElement(changebtn).click();
+    }
+
+    //method to verify Please fii..... for empty email address
+    public String emailPleaseFillMsgVerification(){
+        return driver.findElement(emailAddress).getAttribute("validationMessage");
+    }
+
+    //method to verify Please fii..... for empty contact no
+    public String contactNoPleaseFillMsgVerification(){
+        return driver.findElement(contactNo).getAttribute("validationMessage");
+    }
+
+    //to write the status to test file..
+    public void setTestResult(int row, int col){
+        ExcelUtil.rowNumber = row;
+        ExcelUtil.columnNumber = col;
     }
 }

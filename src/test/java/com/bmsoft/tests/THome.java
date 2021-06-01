@@ -4,10 +4,12 @@ import com.bmsoft.pages.PHome;
 import com.bmsoft.pages.PLogin;
 import com.bmsoft.testbase.BaseTest;
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import com.bmsoft.utilities.SetupDriver;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -41,6 +43,7 @@ public class THome extends BaseTest {
             ploginObj = new PLogin(driver, commonOpObj);
             driver.manage().window().maximize();
 
+            ExcelUtil.setExcelFileSheet("HomeData");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,21 +55,50 @@ public class THome extends BaseTest {
         driver.get(baseUrl);
     }
 
+
+    //successfully logout function verification
     @Test
-    public void tc_01(){
+    public void tc_01()throws InterruptedException {
+
+        phomeObj.setTestResult(1, 4);
+
         phomeObj.clickLoginbtn();
-        ploginObj.enterEmailAddress("thihari@gmail.com");
-        ploginObj.enterPassword("09876");
+        ploginObj.enterEmailAddress(ExcelUtil.getCellData(1,1));
+        ploginObj.enterPassword(ExcelUtil.getCellData(1,2));
         ploginObj.clickLogin();
+        Thread.sleep(3000);
         phomeObj.clickLogOutbtn();
+        phomeObj.clickLoginbtn();
+
+        //verification
+        String actual = driver.findElement(By.xpath("//span[contains(text(),'You have successfully logout')]")).getText();
+        String expected = ExcelUtil.getCellData(1,3);
+        Assert.assertEquals(actual,expected);
 
     }
+/*
+    //successfully logout function verification
+    @Test
+    public void tc_01()throws InterruptedException {
+        phomeObj.clickLoginbtn();
+        ploginObj.enterEmailAddress("thihari@gmail.com");
+        ploginObj.enterPassword("12345");
+        ploginObj.clickLogin();
+        Thread.sleep(3000);
+        phomeObj.clickLogOutbtn();
+        phomeObj.clickLoginbtn();
 
+        //verification
+        String actual = driver.findElement(By.xpath("//span[contains(text(),'You have successfully logout')]")).getText();
+        String expected = "You have successfully logout";
+        Assert.assertEquals(actual,expected);
+    }
+
+*/
     @Test
     public void tselectHome() {
         phomeObj.selectHome();
     }
-
 
 
 
