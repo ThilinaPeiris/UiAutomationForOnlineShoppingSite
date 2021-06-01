@@ -26,4 +26,8 @@ public class PFurniture {
     public void addtoWishListBtn(){
         driver.findElement(addtoWishListBtn).click();
     }
+
+    public String validateProductTitle() {
+        return driver.getTitle();
+    }
 }

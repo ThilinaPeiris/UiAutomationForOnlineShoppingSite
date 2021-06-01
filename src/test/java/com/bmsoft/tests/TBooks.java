@@ -60,12 +60,14 @@ public class TBooks extends BaseTest {
         ploginObj.clickLogin();
     }
     //T06
-    @Test(priority = 1)
+    @Test(priority = 1,description = "test case T06")
     public void tselectProduct() {
         //select book category - T06
         pBooksObj.selectBooks();
         //select wimpy kid book
         pBooksObj.selectProduct();
+        String title = pBooksObj.validateProductTitle();
+        Assert.assertEquals(title,"Product Details");
         //verify the name of the book
         if (driver.getPageSource().contains("The Wimpy Kid Do -It- Yourself Book")) {
             System.out.println("Text is present");
@@ -75,12 +77,14 @@ public class TBooks extends BaseTest {
     }
 
     //T07
-    @Test(priority = 1)
+    @Test(priority = 1,description = "test case T07")
     public void tselectImages() {
         //select book category
         pBooksObj.selectBooks();
         //select wimpy kid book
         pBooksObj.selectProduct();
+        String title = pBooksObj.validateProductTitle();
+        Assert.assertEquals(title,"Product Details");
         //verify the name of the book
         if (driver.getPageSource().contains("The Wimpy Kid Do -It- Yourself Book")) {
             System.out.println("Text is present");
@@ -95,7 +99,7 @@ public class TBooks extends BaseTest {
 
 
     //test case T08
-    @Test(priority = 1)
+    @Test(priority = 1,description = "test case T08")
     public void taddtoCart() {
         pBooksObj.selectBooks();
         pBooksObj.selectProduct();
@@ -105,28 +109,38 @@ public class TBooks extends BaseTest {
             System.out.println("Text is absent");
         }
         pBooksObj.addToCart();
+        String addToCartAlert =  driver.switchTo().alert().getText();
         driver.switchTo().alert().accept();
+        Assert.assertEquals("Product has been added to the cart",addToCartAlert);
+
+        //pBooksObj.setTestResult(1,3);
     }
 
     //test case T09
-    @Test(priority = 1)
+    @Test(priority = 1,description = "test case T09")
     public void taddtoWishList() {
         pBooksObj.selectBooks();
         pBooksObj.selectProduct();
+        //verify the text is present
         if (driver.getPageSource().contains("The Wimpy Kid Do -It- Yourself Book")) {
             System.out.println("Text is present");
         } else {
             System.out.println("Text is absent");
         }
         pBooksObj.addToWishlist();
+        //assert
+        String title = pBooksObj.validateProductTitle();
+        Assert.assertEquals(title,"My Wishlist");
     }
     //T12
-    @Test(priority = 1)
+    @Test(priority = 1,description = "test case T12")
     public void tcheckAvailability() {
         //select book category - T06
         pBooksObj.selectBooks();
         //select wimpy kid book
         pBooksObj.selectProduct();
+        String title = pBooksObj.validateProductTitle();
+        Assert.assertEquals(title,"Product Details");
         //verify the name of the book
         if (driver.getPageSource().contains("In Stock")) {
             System.out.println("Text is present");

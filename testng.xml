@@ -9,6 +9,10 @@
     <test name="Test">
         <classes>
             <class name="com.bmsoft.tests.THome"/>
+            <class name="com.bmsoft.tests.TBooks"/>
+            <class name="com.bmsoft.tests.TFurniture"/>
+            <class name="com.bmsoft.tests.TLeftNavigation"/>
+            <class name="com.bmsoft.tests.TSearch"/>
         </classes>
     </test>
 </suite>

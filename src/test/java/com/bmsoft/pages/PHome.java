@@ -1,6 +1,7 @@
 package com.bmsoft.pages;
 
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,13 +24,16 @@ public class PHome {
     private By logoutLink = By.linkText("Logout");
     private By myAccount = By.xpath("//a[@href='my-account.php']");
     //Locator for login button
-    private By loginBtn = By.xpath("//header/div[1]/div[1]/div[1]/div[1]/ul[1]/li[4]/a[1]");
+    //private By loginBtn = By.xpath("//header/div[1]/div[1]/div[1]/div[1]/ul[1]/li[4]/a[1]");
     //private By LoginBtn = By.partialLinkText("Login");
     //Locator for logout button
     //private By logoutBtn = By.xpath("/html/body/header/div[1]/div/div/div[1]/ul/li[5]/a");
-    private By logoutBtn = By.xpath("//header/div[1]/div[1]/div[1]/div[1]/ul[1]/li[5]/a[1]");
+    //private By logoutBtn = By.xpath("//header/div[1]/div[1]/div[1]/div[1]/ul[1]/li[5]/a[1]");
     //locator for trackOrder button
     private By trackOrder = By.xpath("//span[contains(text(),'Track Order')]");
+    private By logoutBtn = logoutLink;
+    private By loginBtn = loginLink;
+
 
     //Method to click login button
     public void clickLoginbtn() {
@@ -90,6 +94,13 @@ public class PHome {
     public void leftNavigation(){
         driver.findElement(leftNavBook).click();
     }
-
+    public String validateProductTitle(){
+        return driver.getTitle();
+    }
+    //to write the status to test file..
+    public void setTestResult(int row, int col){
+        ExcelUtil.rowNumber = row;
+        ExcelUtil.columnNumber = col;
+    }
 
 }

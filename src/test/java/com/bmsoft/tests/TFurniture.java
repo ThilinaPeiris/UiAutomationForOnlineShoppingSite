@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -60,27 +61,27 @@ public class TFurniture extends BaseTest {
 
     }
     //add to cart from furniture category - T10
-    @Test(priority = 1)
+    @Test(priority = 1,description = "test case T10")
     public void taddtoCart() {
 
         pfurnitureObj.selectFurniture();
         //addtocart
         pfurnitureObj.addtocartBtn();
+        String addToCartAlert =  driver.switchTo().alert().getText();
         driver.switchTo().alert().accept();
+        Assert.assertEquals("Product has been added to the cart",addToCartAlert);
 
     }
     //add to wishlist from furniture category -T11
-    @Test(priority = 1)
+    @Test(priority = 1,description = "test case T11")
     public void taddtoWishlist() {
 
         pfurnitureObj.selectFurniture();
         //add to wishlist
         pfurnitureObj.addtoWishListBtn();
-        if (driver.getPageSource().contains("MY WISHLIST")) {
-            System.out.println("Text is present");
-        } else {
-            System.out.println("Text is absent");
-        }
+        String title = pfurnitureObj.validateProductTitle();
+        Assert.assertEquals(title,"My Wishlist");
+
     }
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
