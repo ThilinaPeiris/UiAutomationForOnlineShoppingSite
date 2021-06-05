@@ -23,13 +23,14 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class TOrderTrack extends BaseTest {
-    private static final Logger LOGGER = LogManager.getLogger(THome.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(TOrderTrack.class.getName());
 
     private WebDriver driver;
     private CommonOp commonOpObj;
     private POrderTrack pordertrackObj;
     private PHome phomeObj;
     private PLogin ploginObj;
+
 
     @BeforeClass
     public void setUpClass() {
@@ -52,6 +53,7 @@ public class TOrderTrack extends BaseTest {
         }
     }
 
+
     @BeforeMethod
     public void setUpMethod() {
         driver.get(baseUrl);
@@ -61,141 +63,68 @@ public class TOrderTrack extends BaseTest {
         phomeObj.clickTrackOrderBtn();
     }
 
-    //valid order id & valid email
-    @Test
-    public void tc_19(){
+
+    @Test(description = "TC_19 - valid order id & valid email")
+    public void orderTrackWithValidOidValidEmail(){
 
         pordertrackObj.setTestResult(1, 4);
 
         pordertrackObj.enterOrderId(ExcelUtil.getCellData(1,1));
         pordertrackObj.enterRegisteredEmail(ExcelUtil.getCellData(1,2));
         pordertrackObj.clickTrackBtn();
-        //Thread.sleep(3000);
 
-        //verification
         String title =  phomeObj.navigateOrderTrackPage();
         Assert.assertEquals(title, ExcelUtil.getCellData(1,3));
 
     }
 
-    //invalid order id
-    @Test
-    public void tc_20(){
+
+    @Test(description = "TC_20 - invalid order id")
+    public void orderTrackWithInvalidOid(){
 
         pordertrackObj.setTestResult(2, 4);
 
         pordertrackObj.enterOrderId(ExcelUtil.getCellData(2,1));
         pordertrackObj.enterRegisteredEmail(ExcelUtil.getCellData(2,2));
         pordertrackObj.clickTrackBtn();
-        //Thread.sleep(3000);
 
         String actual_msg=driver.findElement(By.xpath("//td[contains(text(),'Registered email id is invalid')]")).getText();
-        // Store message in variable
         String expect= ExcelUtil.getCellData(2,3);
-        // Verify error message
         Assert.assertEquals(actual_msg, expect);
 
     }
 
-    //invalid email address
-    @Test
-    public void tc_21(){
+
+    @Test(description = "TC_21 - invalid email address")
+    public void orderTrackWithInvalidEmailAddress(){
 
         pordertrackObj.setTestResult(3, 4);
 
         pordertrackObj.enterOrderId(ExcelUtil.getCellData(3,1));
         pordertrackObj.enterRegisteredEmail(ExcelUtil.getCellData(3,2));
         pordertrackObj.clickTrackBtn();
-        //Thread.sleep(3000);
 
         String actual_msg=driver.findElement(By.xpath("//td[contains(text(),'Registered email id is invalid')]")).getText();
-        // Store message in variable
         String expect= ExcelUtil.getCellData(3,3);
-        // Verify error message
         Assert.assertEquals(actual_msg, expect);
 
     }
 
-    //both invalid
-    @Test
-    public void tc_22(){
+
+    @Test(description = "TC_21 - invalid oid & invalid email address")
+    public void orderTrackWithInvalidOidInvalidEmailAddress(){
 
         pordertrackObj.setTestResult(4, 4);
 
         pordertrackObj.enterOrderId(ExcelUtil.getCellData(4,1));
         pordertrackObj.enterRegisteredEmail(ExcelUtil.getCellData(4,2));
         pordertrackObj.clickTrackBtn();
-        //Thread.sleep(3000);
 
         String actual_msg=driver.findElement(By.xpath("//td[contains(text(),'Registered email id is invalid')]")).getText();
-        // Store message in variable
         String expect= ExcelUtil.getCellData(4,3);
-        // Verify error message
         Assert.assertEquals(actual_msg, expect);
 
     }
-
-    /*
-
-    //valid order id & valid email
-    @Test
-    public void tc_19(){
-        pordertrackObj.enterOrderId("8");
-        pordertrackObj.enterRegisteredEmail("thihari@gmail.com");
-        pordertrackObj.clickTrackBtn();
-        //Thread.sleep(3000);
-
-        //verification
-        String title =  phomeObj.navigateOrderTrackPage();
-        Assert.assertEquals(title,"Order History");
-    }
-
-    //invalid order id
-    @Test
-    public void tc_20(){
-        pordertrackObj.enterOrderId("1");
-        pordertrackObj.enterRegisteredEmail("thihari@gmail.com");
-        pordertrackObj.clickTrackBtn();
-        //Thread.sleep(3000);
-
-        String actual_msg=driver.findElement(By.xpath("//td[contains(text(),'Registered email id is invalid')]")).getText();
-        // Store message in variable
-        String expect="Either order id or Registered email id is invalid";
-        // Verify error message
-        Assert.assertEquals(actual_msg, expect);
-    }
-
-    //invalid email address
-    @Test
-    public void tc_21(){
-        pordertrackObj.enterOrderId("8");
-        pordertrackObj.enterRegisteredEmail("thihari1212@gmail.com");
-        pordertrackObj.clickTrackBtn();
-        //Thread.sleep(3000);
-
-        String actual_msg=driver.findElement(By.xpath("//td[contains(text(),'Registered email id is invalid')]")).getText();
-        // Store message in variable
-        String expect="Either order id or Registered email id is invalid";
-        // Verify error message
-        Assert.assertEquals(actual_msg, expect);
-    }
-
-    //both invalid
-    @Test
-    public void tc_22(){
-        pordertrackObj.enterOrderId("1");
-        pordertrackObj.enterRegisteredEmail("thihari1212@gmail.com");
-        pordertrackObj.clickTrackBtn();
-        //Thread.sleep(3000);
-
-        String actual_msg=driver.findElement(By.xpath("//td[contains(text(),'Registered email id is invalid')]")).getText();
-        // Store message in variable
-        String expect="Either order id or Registered email id is invalid";
-        // Verify error message
-        Assert.assertEquals(actual_msg, expect);
-    }
-
-     */
 
 
     @AfterMethod
@@ -212,6 +141,7 @@ public class TOrderTrack extends BaseTest {
         }
 
     }
+
 
     @AfterClass
     public void tearDownClass() {

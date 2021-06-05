@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class TSignUp extends BaseTest {
-    private static final Logger LOGGER = LogManager.getLogger(THome.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(TSignUp.class.getName());
 
     private WebDriver driver;
     private CommonOp commonOpObj;
@@ -54,9 +54,9 @@ public class TSignUp extends BaseTest {
         phomeObj.clickLoginbtn();
     }
 
-    //all valid fields
-    @Test
-    public void tc_02() throws InterruptedException {
+
+    @Test(description = "TC_02 - all valid inputs")
+    public void signUpWithAllValidInputs() throws InterruptedException {
 
         psignupObj.setTestResult(1, 7);
 
@@ -68,16 +68,15 @@ public class TSignUp extends BaseTest {
         psignupObj.clicksignup();
         Thread.sleep(3000);
 
-        //verification
         String successfullyRegisterAlertText = driver.switchTo().alert().getText();
         driver.switchTo().alert().accept();
         Assert.assertEquals(ExcelUtil.getCellData(1,6),successfullyRegisterAlertText);
 
     }
 
-    //empty full name
-    @Test
-    public void tc_03() {
+
+    @Test(description = "TC_03 - empty full name")
+    public void signUpWithEmptyFullName() {
 
         psignupObj.setTestResult(2, 7);
 
@@ -88,14 +87,13 @@ public class TSignUp extends BaseTest {
         psignupObj.enterConfirmPword(ExcelUtil.getCellData(2,5));
         psignupObj.clicksignup();
 
-        //verification
         Assert.assertEquals(psignupObj.fullNamePleaseFillMsgVerification(), ExcelUtil.getCellData(2,6));
 
     }
 
-    //empty email address
-    @Test
-    public void tc_04() {
+
+    @Test(description = "TC_04 - empty Email Address")
+    public void signUpWithEmptyEmailAddress() {
 
         psignupObj.setTestResult(3, 7);
 
@@ -106,14 +104,13 @@ public class TSignUp extends BaseTest {
         psignupObj.enterConfirmPword(ExcelUtil.getCellData(3,5));
         psignupObj.clicksignup();
 
-        //verification
         Assert.assertEquals(psignupObj.emailPleaseFillMsgVerification(), ExcelUtil.getCellData(3,6));
 
     }
 
-    //empty contact no
-    @Test
-    public void tc_05() {
+
+    @Test(description = "TC_05 - empty contact no")
+    public void signUpWithEmptyContactNo() {
 
         psignupObj.setTestResult(4, 7);
 
@@ -124,14 +121,13 @@ public class TSignUp extends BaseTest {
         psignupObj.enterConfirmPword(ExcelUtil.getCellData(4,5));
         psignupObj.clicksignup();
 
-        //verification
         Assert.assertEquals(psignupObj.contactNoPleaseFillMsgVerification(), ExcelUtil.getCellData(4,6));
 
     }
 
-    //empty password
-    @Test
-    public void tc_06() {
+
+    @Test(description = "TC_06 - empty password")
+    public void signUpWithEmptyPassword() {
 
         psignupObj.setTestResult(5, 7);
 
@@ -142,14 +138,13 @@ public class TSignUp extends BaseTest {
         psignupObj.enterConfirmPword(ExcelUtil.getCellData(5,5));
         psignupObj.clicksignup();
 
-        //verification
         Assert.assertEquals(psignupObj.passwordPleaseFillMsgVerification(), ExcelUtil.getCellData(5,6));
 
     }
 
-    //empty confirm password
-    @Test
-    public void tc_07() {
+
+    @Test(description = "TC_07 - empty confirm password")
+    public void signUpWithEmptyConfirmPassword() {
 
         psignupObj.setTestResult(6, 7);
 
@@ -160,14 +155,13 @@ public class TSignUp extends BaseTest {
         psignupObj.enterConfirmPword(ExcelUtil.getCellData(6,5));
         psignupObj.clicksignup();
 
-        //verification
         Assert.assertEquals(psignupObj.cPasswordPleaseFillMsgVerification(), ExcelUtil.getCellData(6,6));
 
     }
 
-    //different confirmation password
-    @Test
-    public void tc_08() throws InterruptedException {
+
+    @Test(description = "TC_08 - different confirmation password")
+    public void signUpWithDifferentConfirmationPassword() throws InterruptedException {
 
         psignupObj.setTestResult(7, 7);
 
@@ -179,120 +173,11 @@ public class TSignUp extends BaseTest {
         psignupObj.clicksignup();
         Thread.sleep(3000);
 
-        //validation
         String passwordDifferentAlertText = driver.switchTo().alert().getText();
         driver.switchTo().alert().accept();
         Assert.assertEquals(ExcelUtil.getCellData(7,6),passwordDifferentAlertText);
 
     }
-/*
-    //all valid fields
-    @Test
-    public void tc_02() throws InterruptedException {
-        psignupObj.enterFullName("Max Smith Williams");
-        psignupObj.enterEmail("maxs123@gmail.com");
-        psignupObj.enterContactNo("0717788987");
-        psignupObj.enterPword("12345");
-        psignupObj.enterConfirmPword("12345");
-        psignupObj.clicksignup();
-        Thread.sleep(3000);
-
-        //verification
-        String successfullyRegisterAlertText = driver.switchTo().alert().getText();
-        driver.switchTo().alert().accept();
-        Assert.assertEquals("You are successfully register",successfullyRegisterAlertText);
-    }
-
-    //empty full name
-    @Test
-    public void tc_03() {
-        psignupObj.enterFullName("");
-        psignupObj.enterEmail("max841@gmail.com");
-        psignupObj.enterContactNo("0717788987");
-        psignupObj.enterPword("09876");
-        psignupObj.enterConfirmPword("09876");
-        psignupObj.clicksignup();
-
-        //verification
-        psignupObj.fullNamePleaseFillMsgVerification();
-    }
-
-    //empty email address
-    @Test
-    public void tc_04() {
-        psignupObj.enterFullName("john max");
-        psignupObj.enterEmail("");
-        psignupObj.enterContactNo("0717788987");
-        psignupObj.enterPword("09876");
-        psignupObj.enterConfirmPword("09876");
-        psignupObj.clicksignup();
-
-        //verification
-        psignupObj.emailPleaseFillMsgVerification();
-    }
-
-    //empty contact no
-    @Test
-    public void tc_05() {
-        psignupObj.enterFullName("max567");
-        psignupObj.enterEmail("max567@gmail.com");
-        psignupObj.enterContactNo("");
-        psignupObj.enterPword("09876");
-        psignupObj.enterConfirmPword("09876");
-        psignupObj.clicksignup();
-
-        //verification
-        psignupObj.contactNoPleaseFillMsgVerification();
-    }
-
-    //empty password
-    @Test
-    public void tc_06() {
-        psignupObj.enterFullName("max876");
-        psignupObj.enterEmail("max876@gmail.com");
-        psignupObj.enterContactNo("0717788987");
-        psignupObj.enterPword("");
-        psignupObj.enterConfirmPword("09876");
-        psignupObj.clicksignup();
-
-        //verification
-        psignupObj.passwordPleaseFillMsgVerification();
-
-    }
-
-    //empty confirm password
-    @Test
-    public void tc_07() {
-        psignupObj.enterFullName("max234");
-        psignupObj.enterEmail("max234@gmail.com");
-        psignupObj.enterContactNo("0717788987");
-        psignupObj.enterPword("09876");
-        psignupObj.enterConfirmPword("");
-        psignupObj.clicksignup();
-
-        //verification
-        psignupObj.cPasswordPleaseFillMsgVerification();
-
-    }
-
-    //different confirmation password
-    @Test
-    public void tc_08() throws InterruptedException {
-        psignupObj.enterFullName("max123");
-        psignupObj.enterEmail("max184@gmail.com");
-        psignupObj.enterContactNo("0717788987");
-        psignupObj.enterPword("09876");
-        psignupObj.enterConfirmPword("abcde");
-        psignupObj.clicksignup();
-        Thread.sleep(3000);
-
-        //validation
-        String passwordDifferentAlertText = driver.switchTo().alert().getText();
-        driver.switchTo().alert().accept();
-        Assert.assertEquals("Password and Confirm Password Field do not match  !!",passwordDifferentAlertText);
-    }
-
- */
 
 
     @AfterMethod
