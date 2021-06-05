@@ -10,24 +10,21 @@ public class PMyCart {
     private final WebDriver driver;
     private final CommonOp commonOpObj;
 
-    public PMyCart(WebDriver driver, CommonOp commonOpObj) {
-        this.driver = driver;
-        this.commonOpObj = commonOpObj;
-    }
-
     private final By billingAddress = By.name("billingaddress");
     private final By bilingstate = By.name("bilingstate");
     private final By billingcity = By.name("billingcity");
     private final By billingpincode = By.name("billingpincode");
-
     private final By shippingaddress = By.name("shippingaddress");
     private final By shippingstate = By.name("shippingstate");
     private final By shippingcity = By.name("shippingcity");
     private final By shippingpincode = By.name("shippingpincode");
-
     private final By ordersubmit = By.name("ordersubmit");
-
     private final By homePageLink = By.xpath("//a[@href='index.php' and text()='Home']");
+
+    public PMyCart(WebDriver driver, CommonOp commonOpObj) {
+        this.driver = driver;
+        this.commonOpObj = commonOpObj;
+    }
 
     public void setBillingAddress(String billingAddressVal){
         driver.findElement(billingAddress).sendKeys(billingAddressVal);
@@ -69,10 +66,8 @@ public class PMyCart {
         driver.findElement(homePageLink).click();
     }
 
-    //to write the status to test file..
     public void setTestResult(int row, int col){
         ExcelUtil.rowNumber = row;
         ExcelUtil.columnNumber = col;
     }
-
 }

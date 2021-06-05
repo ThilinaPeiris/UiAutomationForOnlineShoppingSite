@@ -31,11 +31,9 @@ public class TForgotPW extends BaseTest {
     private PLogin ploginObj;
     private PHome phomeObj;
 
-
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
 
@@ -53,17 +51,14 @@ public class TForgotPW extends BaseTest {
         }
     }
 
-
     @BeforeMethod
     public void setUpMethod() {
         driver.get(baseUrl);
         phomeObj.clickLoginbtn();
     }
 
-
-    @Test(description = "TC_13 - all valid inputs")
+    @Test(description = "LR_TC_13 - all valid inputs")
     public void validInputs(){
-
         pforgotpwObj.setTestResult(1, 6);
 
         ploginObj.clickForgotPassword();
@@ -76,13 +71,10 @@ public class TForgotPW extends BaseTest {
         String actual_msg=driver.findElement(By.xpath("//span[contains(text(),'Password Changed Successfully')]")).getText();
         String expect= ExcelUtil.getCellData(1,5);
         Assert.assertEquals(actual_msg, expect);
-
     }
 
-
-    @Test(description = "TC_14 - invalid email address")
+    @Test(description = "LR_TC_14 - invalid email address")
     public void invalidEmailAddress(){
-
         pforgotpwObj.setTestResult(2, 6);
 
         ploginObj.clickForgotPassword();
@@ -95,13 +87,10 @@ public class TForgotPW extends BaseTest {
         String actual_msg=driver.findElement(By.xpath("//span[contains(text(),'Invalid email id or Contact no')]")).getText();
         String expect= ExcelUtil.getCellData(2,5);
         Assert.assertEquals(actual_msg, expect);
-
     }
 
-
-    @Test(description = "TC_15 - invalid contact number")
+    @Test(description = "LR_TC_15 - invalid contact number")
     public void invalidContactNumber(){
-
         pforgotpwObj.setTestResult(3, 6);
 
         ploginObj.clickForgotPassword();
@@ -114,13 +103,10 @@ public class TForgotPW extends BaseTest {
         String actual_msg=driver.findElement(By.xpath("//span[contains(text(),'Invalid email id or Contact no')]")).getText();
         String expect= ExcelUtil.getCellData(3,5);
         Assert.assertEquals(actual_msg, expect);
-
     }
 
-
-    @Test(description = "TC_16 - empty email address")
+    @Test(description = "LR_TC_16 - empty email address")
     public void emptyEmailAddress() {
-
         pforgotpwObj.setTestResult(4, 6);
 
         ploginObj.clickForgotPassword();
@@ -131,13 +117,10 @@ public class TForgotPW extends BaseTest {
         pforgotpwObj.clickChangeBtn();
 
         Assert.assertEquals(pforgotpwObj.emailPleaseFillMsgVerification(), ExcelUtil.getCellData(4,5));
-
     }
 
-
-    @Test(description = "TC_17 - empty contact number")
+    @Test(description = "LR_TC_17 - empty contact number")
     public void emptyContactNumber() {
-
         pforgotpwObj.setTestResult(5, 6);
 
         ploginObj.clickForgotPassword();
@@ -148,9 +131,7 @@ public class TForgotPW extends BaseTest {
         pforgotpwObj.clickChangeBtn();
 
         Assert.assertEquals(pforgotpwObj.contactNoPleaseFillMsgVerification(), ExcelUtil.getCellData(4,5));
-
     }
-
 
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
@@ -164,9 +145,9 @@ public class TForgotPW extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
     }
-
 
     @AfterClass
     public void tearDownClass() {

@@ -31,11 +31,9 @@ public class TOrderTrack extends BaseTest {
     private PHome phomeObj;
     private PLogin ploginObj;
 
-
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -53,20 +51,18 @@ public class TOrderTrack extends BaseTest {
         }
     }
 
-
     @BeforeMethod
     public void setUpMethod() {
         driver.get(baseUrl);
+
         phomeObj.clickLoginbtn();
         ploginObj.enterEmailAddress("thihari@gmail.com");
         ploginObj.enterPassword("abcde");
         phomeObj.clickTrackOrderBtn();
     }
 
-
-    @Test(description = "TC_19 - valid order id & valid email")
-    public void orderTrackWithValidOidValidEmail(){
-
+    @Test(description = "LR_TC_19 - valid order id & valid email")
+    public void orderTrackWithValidOidValidEmail() {
         pordertrackObj.setTestResult(1, 4);
 
         pordertrackObj.enterOrderId(ExcelUtil.getCellData(1,1));
@@ -75,13 +71,10 @@ public class TOrderTrack extends BaseTest {
 
         String title =  phomeObj.navigateOrderTrackPage();
         Assert.assertEquals(title, ExcelUtil.getCellData(1,3));
-
     }
 
-
-    @Test(description = "TC_20 - invalid order id")
-    public void orderTrackWithInvalidOid(){
-
+    @Test(description = "LR_TC_20 - invalid order id")
+    public void orderTrackWithInvalidOid() {
         pordertrackObj.setTestResult(2, 4);
 
         pordertrackObj.enterOrderId(ExcelUtil.getCellData(2,1));
@@ -91,13 +84,10 @@ public class TOrderTrack extends BaseTest {
         String actual_msg=driver.findElement(By.xpath("//td[contains(text(),'Registered email id is invalid')]")).getText();
         String expect= ExcelUtil.getCellData(2,3);
         Assert.assertEquals(actual_msg, expect);
-
     }
 
-
-    @Test(description = "TC_21 - invalid email address")
-    public void orderTrackWithInvalidEmailAddress(){
-
+    @Test(description = "LR_TC_21 - invalid email address")
+    public void orderTrackWithInvalidEmailAddress() {
         pordertrackObj.setTestResult(3, 4);
 
         pordertrackObj.enterOrderId(ExcelUtil.getCellData(3,1));
@@ -107,13 +97,10 @@ public class TOrderTrack extends BaseTest {
         String actual_msg=driver.findElement(By.xpath("//td[contains(text(),'Registered email id is invalid')]")).getText();
         String expect= ExcelUtil.getCellData(3,3);
         Assert.assertEquals(actual_msg, expect);
-
     }
 
-
-    @Test(description = "TC_21 - invalid oid & invalid email address")
-    public void orderTrackWithInvalidOidInvalidEmailAddress(){
-
+    @Test(description = "LR_TC_21 - invalid oid & invalid email address")
+    public void orderTrackWithInvalidOidInvalidEmailAddress() {
         pordertrackObj.setTestResult(4, 4);
 
         pordertrackObj.enterOrderId(ExcelUtil.getCellData(4,1));
@@ -123,9 +110,7 @@ public class TOrderTrack extends BaseTest {
         String actual_msg=driver.findElement(By.xpath("//td[contains(text(),'Registered email id is invalid')]")).getText();
         String expect= ExcelUtil.getCellData(4,3);
         Assert.assertEquals(actual_msg, expect);
-
     }
-
 
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
@@ -139,13 +124,12 @@ public class TOrderTrack extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
     }
-
 
     @AfterClass
     public void tearDownClass() {
         driver.quit();
     }
-
 }

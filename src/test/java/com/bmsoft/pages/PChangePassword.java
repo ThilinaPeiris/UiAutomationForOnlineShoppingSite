@@ -48,10 +48,8 @@ public class PChangePassword {
         driver.switchTo().alert().accept();
     }
 
-    //To write the status to test file..
     public void setTestResult(int row, int col){
         ExcelUtil.rowNumber = row;
         ExcelUtil.columnNumber = col;
     }
-
 }

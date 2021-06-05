@@ -30,7 +30,6 @@ public class TSignUp extends BaseTest {
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -54,10 +53,8 @@ public class TSignUp extends BaseTest {
         phomeObj.clickLoginbtn();
     }
 
-
-    @Test(description = "TC_02 - all valid inputs")
-    public void signUpWithAllValidInputs() throws InterruptedException {
-
+    @Test(description = "LR_TC_02 - all valid inputs")
+    public void signUpWithAllValidInputs() {
         psignupObj.setTestResult(1, 7);
 
         psignupObj.enterFullName(ExcelUtil.getCellData(1,1));
@@ -66,18 +63,14 @@ public class TSignUp extends BaseTest {
         psignupObj.enterPword(ExcelUtil.getCellData(1,4));
         psignupObj.enterConfirmPword(ExcelUtil.getCellData(1,5));
         psignupObj.clicksignup();
-        Thread.sleep(3000);
 
         String successfullyRegisterAlertText = driver.switchTo().alert().getText();
         driver.switchTo().alert().accept();
         Assert.assertEquals(ExcelUtil.getCellData(1,6),successfullyRegisterAlertText);
-
     }
 
-
-    @Test(description = "TC_03 - empty full name")
+    @Test(description = "LR_TC_03 - empty full name")
     public void signUpWithEmptyFullName() {
-
         psignupObj.setTestResult(2, 7);
 
         psignupObj.enterFullName(ExcelUtil.getCellData(2,1));
@@ -88,13 +81,10 @@ public class TSignUp extends BaseTest {
         psignupObj.clicksignup();
 
         Assert.assertEquals(psignupObj.fullNamePleaseFillMsgVerification(), ExcelUtil.getCellData(2,6));
-
     }
 
-
-    @Test(description = "TC_04 - empty Email Address")
+    @Test(description = "LR_TC_04 - empty Email Address")
     public void signUpWithEmptyEmailAddress() {
-
         psignupObj.setTestResult(3, 7);
 
         psignupObj.enterFullName(ExcelUtil.getCellData(3,1));
@@ -105,13 +95,10 @@ public class TSignUp extends BaseTest {
         psignupObj.clicksignup();
 
         Assert.assertEquals(psignupObj.emailPleaseFillMsgVerification(), ExcelUtil.getCellData(3,6));
-
     }
 
-
-    @Test(description = "TC_05 - empty contact no")
+    @Test(description = "LR_TC_05 - empty contact no")
     public void signUpWithEmptyContactNo() {
-
         psignupObj.setTestResult(4, 7);
 
         psignupObj.enterFullName(ExcelUtil.getCellData(4,1));
@@ -122,13 +109,10 @@ public class TSignUp extends BaseTest {
         psignupObj.clicksignup();
 
         Assert.assertEquals(psignupObj.contactNoPleaseFillMsgVerification(), ExcelUtil.getCellData(4,6));
-
     }
 
-
-    @Test(description = "TC_06 - empty password")
+    @Test(description = "LR_TC_06 - empty password")
     public void signUpWithEmptyPassword() {
-
         psignupObj.setTestResult(5, 7);
 
         psignupObj.enterFullName(ExcelUtil.getCellData(5,1));
@@ -139,13 +123,10 @@ public class TSignUp extends BaseTest {
         psignupObj.clicksignup();
 
         Assert.assertEquals(psignupObj.passwordPleaseFillMsgVerification(), ExcelUtil.getCellData(5,6));
-
     }
 
-
-    @Test(description = "TC_07 - empty confirm password")
+    @Test(description = "LR_TC_07 - empty confirm password")
     public void signUpWithEmptyConfirmPassword() {
-
         psignupObj.setTestResult(6, 7);
 
         psignupObj.enterFullName(ExcelUtil.getCellData(6,1));
@@ -156,13 +137,10 @@ public class TSignUp extends BaseTest {
         psignupObj.clicksignup();
 
         Assert.assertEquals(psignupObj.cPasswordPleaseFillMsgVerification(), ExcelUtil.getCellData(6,6));
-
     }
 
-
-    @Test(description = "TC_08 - different confirmation password")
-    public void signUpWithDifferentConfirmationPassword() throws InterruptedException {
-
+    @Test(description = "LR_TC_08 - different confirmation password")
+    public void signUpWithDifferentConfirmationPassword() {
         psignupObj.setTestResult(7, 7);
 
         psignupObj.enterFullName(ExcelUtil.getCellData(7,1));
@@ -171,14 +149,11 @@ public class TSignUp extends BaseTest {
         psignupObj.enterPword(ExcelUtil.getCellData(7,4));
         psignupObj.enterConfirmPword(ExcelUtil.getCellData(7,5));
         psignupObj.clicksignup();
-        Thread.sleep(3000);
 
         String passwordDifferentAlertText = driver.switchTo().alert().getText();
         driver.switchTo().alert().accept();
         Assert.assertEquals(ExcelUtil.getCellData(7,6),passwordDifferentAlertText);
-
     }
-
 
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
@@ -192,7 +167,8 @@ public class TSignUp extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
+        driver.manage().deleteAllCookies();
+        commonOpObj.Sleep(3000);
     }
 
     @AfterClass

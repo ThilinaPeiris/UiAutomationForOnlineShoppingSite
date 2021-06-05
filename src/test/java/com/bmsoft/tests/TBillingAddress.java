@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class TBillingAddress extends BaseTest {
-    private static final Logger LOGGER = LogManager.getLogger(TMyProfile.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(TBillingAddress.class.getName());
 
     private WebDriver driver;
     private CommonOp commonOpObj;
@@ -28,11 +28,9 @@ public class TBillingAddress extends BaseTest {
     private PLogin ploginObj;
     private PBillingAddress pBillingAddressObj;
 
-
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -46,7 +44,6 @@ public class TBillingAddress extends BaseTest {
 
             ExcelUtil.setExcelFileSheet("Billing Address");
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,7 +51,6 @@ public class TBillingAddress extends BaseTest {
 
     @BeforeMethod
     public void setUpMethod() {
-
         driver.get(baseUrl);
 
         phomeObj.clickLoginbtn();
@@ -63,10 +59,8 @@ public class TBillingAddress extends BaseTest {
         ploginObj.clickLogin();
     }
 
-    //T10 - Update billing address with valid values
-    @Test
+    @Test(description = "PM_TC_10 - Update billing address with valid values")
     public void updateBillingAddress(){
-
         String billingAddressValue = ExcelUtil.getCellData(1,1);
         String billingStateValue = ExcelUtil.getCellData(1, 2);
         String billingCityValue = ExcelUtil.getCellData(1, 3);
@@ -82,10 +76,10 @@ public class TBillingAddress extends BaseTest {
         pBillingAddressObj.enterBillingCity(billingCityValue);
         pBillingAddressObj.enterBillingPincode(billingPincodeValue);
         pBillingAddressObj.clickUpdateButton();
+
         String alertText = pBillingAddressObj.getAlertText();
         pBillingAddressObj.clickOkAlert();
         Assert.assertEquals(alertMessage,alertText);
-
     }
 
     @AfterMethod
@@ -100,10 +94,8 @@ public class TBillingAddress extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
         driver.manage().deleteAllCookies();
         commonOpObj.Sleep(3000);
-
     }
 
     @AfterClass

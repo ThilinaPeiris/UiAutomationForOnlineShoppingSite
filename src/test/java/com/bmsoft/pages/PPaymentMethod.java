@@ -9,14 +9,14 @@ public class PPaymentMethod {
     private WebDriver driver;
     private CommonOp commonOpObj;
 
+    private By codInputRadioBtn = By.xpath("//input[@value='COD']");
+    private By intentBankingInputRadioBtn = By.xpath("//input[@value='Internet Banking']");
+    private By cardInputRadioBtn = By.xpath("//input[@value='Debit / Credit card']");
+
     public PPaymentMethod(WebDriver driver, CommonOp commonOpObj) {
         this.driver = driver;
         this.commonOpObj = commonOpObj;
     }
-
-    private By codInputRadioBtn = By.xpath("//input[@value='COD']");
-    private By intentBankingInputRadioBtn = By.xpath("//input[@value='Internet Banking']");
-    private By cardInputRadioBtn = By.xpath("//input[@value='Debit / Credit card']");
 
     public boolean iscodInputRadioBtnDisplayed(){
         return driver.findElement(codInputRadioBtn).isDisplayed();
@@ -29,5 +29,4 @@ public class PPaymentMethod {
     public boolean iscardInputRadioBtnDisplayed(){
         return driver.findElement(cardInputRadioBtn).isDisplayed();
     }
-
 }

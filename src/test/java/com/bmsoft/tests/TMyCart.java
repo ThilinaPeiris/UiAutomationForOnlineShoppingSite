@@ -9,6 +9,8 @@ import com.bmsoft.utilities.CommonOp;
 import com.bmsoft.utilities.ExcelUtil;
 import com.bmsoft.utilities.SetupDriver;
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TMyCart extends BaseTest {
+    private static final Logger LOGGER = LogManager.getLogger(TMyCart.class.getName());
 
     private WebDriver driver;
     private CommonOp commonOpObj;
@@ -37,19 +40,18 @@ public class TMyCart extends BaseTest {
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
+
             commonOpObj = new CommonOp(driver);
             ploginObj = new PLogin(driver, commonOpObj);
             phomeObj = new PHome(driver,commonOpObj);
             pPaymentMethodObj = new PPaymentMethod(driver,commonOpObj);
             pMyCartObj = new PMyCart(driver, commonOpObj);
+
             driver.manage().window().maximize();
 
             ExcelUtil.setExcelFileSheet("MyCart");
-
-            //setup common variables for the my cart test methods
 
             username = ExcelUtil.getCellData(2,1);
             password = ExcelUtil.getCellData(2, 2);
@@ -76,9 +78,10 @@ public class TMyCart extends BaseTest {
         driver.get(baseUrl);
     }
 
-    @Test(description = "TC_SC_001 - Add to Cart")
+    @Test(description = "SC_TC_001 - Add to Cart")
     public void tAddToMyCartAlert(){
         phomeObj.clickOnRandomProductAddtoCartLink();
+
         String addToCartAlertText = driver.switchTo().alert().getText();
         driver.switchTo().alert().accept();
         Assert.assertEquals("Product has been added to the cart", addToCartAlertText);
@@ -86,26 +89,21 @@ public class TMyCart extends BaseTest {
         pMyCartObj.setTestResult(1,5);
     }
 
-    @Test(description = "TC_SC_015 -  Choose Payment Methods")
+    @Test(description = "SC_TC_015 -  Choose Payment Methods")
     public void tPaymentMethods(){
-
-        //log in with valid credentials
         phomeObj.clickLoginbtn();
         ploginObj.enterEmailAddress(username);
         ploginObj.enterPassword(password);
         ploginObj.clickLogin();
         pMyCartObj.clickOnHomeLink();
 
-        //click on random product to add it to the cart
         phomeObj.clickOnRandomProductAddtoCartLink();
         driver.switchTo().alert().accept();
 
-        //setBilling address and shipping address
         setBillingShippingAddress();
 
         pMyCartObj.clickOnordersubmit();
 
-        //Assert if all the three payment methods are showing
         Assert.assertTrue(pPaymentMethodObj.iscodInputRadioBtnDisplayed());
         Assert.assertTrue(pPaymentMethodObj.isintentBankingInputRadioBtnDisplayed());
         Assert.assertTrue(pPaymentMethodObj.iscardInputRadioBtnDisplayed());
@@ -134,17 +132,14 @@ public class TMyCart extends BaseTest {
             File target=new File(System.getProperty("user.dir")+"/Screenshots/"+result.getName()+".png");
 
             FileUtils.copyFile(source,target);
-            //commonOpObj.Sleep(2000);
+            commonOpObj.Sleep(2000);
         }
-
         driver.manage().deleteAllCookies();
         commonOpObj.Sleep(3000);
-
     }
 
     @AfterClass
     public void tearDownClass() {
         driver.quit();
     }
-
 }

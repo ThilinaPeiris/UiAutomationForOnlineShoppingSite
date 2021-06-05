@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class TOrderHistory extends BaseTest {
-    private static final Logger LOGGER = LogManager.getLogger(TShippingAddress.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(TOrderHistory.class.getName());
 
     private WebDriver driver;
     private CommonOp commonOpObj;
@@ -28,11 +28,9 @@ public class TOrderHistory extends BaseTest {
     private PLogin ploginObj;
     private POrderHistory pOrderHistoryObj;
 
-
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -53,7 +51,6 @@ public class TOrderHistory extends BaseTest {
 
     @BeforeMethod
     public void setUpMethod() {
-
         driver.get(baseUrl);
 
         phomeObj.clickLoginbtn();
@@ -62,22 +59,20 @@ public class TOrderHistory extends BaseTest {
         ploginObj.clickLogin();
     }
 
-    //T12 - Verify order history records page is visible
-    @Test
+    @Test(description = "PM_TC_12 - Verify order history records page is visible")
     public void viewOrderHistoryRecordsPage(){
-
         String pageTitle = ExcelUtil.getCellData(1, 1);
 
         pOrderHistoryObj.setTestResult(1, 2);
 
         phomeObj.clickMyAccountTab();
         pOrderHistoryObj.clickOrderHistorySideMenuBar();
+
         String title = pOrderHistoryObj.verifyTitle();
         Assert.assertEquals(title, pageTitle);
     }
 
-    //T14 - Track the orders
-    @Test
+    @Test(description = "PM_TC_14 - Track the orders")
     public void trackOrder(){
         phomeObj.clickMyAccountTab();
         pOrderHistoryObj.clickOrderHistorySideMenuBar();
@@ -97,10 +92,8 @@ public class TOrderHistory extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
         driver.manage().deleteAllCookies();
         commonOpObj.Sleep(3000);
-
     }
 
     @AfterClass

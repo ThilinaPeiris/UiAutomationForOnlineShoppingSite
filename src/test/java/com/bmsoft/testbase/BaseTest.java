@@ -13,7 +13,6 @@ public class BaseTest {
     protected Properties props;
 
     public BaseTest() {
-
     }
 
     @BeforeSuite
@@ -33,7 +32,6 @@ public class BaseTest {
 
     @AfterSuite
     public void FinalizeSuite() {
-
     }
 
     private void getProperties() {

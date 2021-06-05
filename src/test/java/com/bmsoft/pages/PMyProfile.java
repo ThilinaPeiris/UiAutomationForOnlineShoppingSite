@@ -15,51 +15,41 @@ public class PMyProfile {
     private By contactNoTextbox = By.id("contactno");
     private By updateBtn = By.name("update");
 
+    public String verifyTitle(){
+        return driver.getTitle();
+    }
+    public void clearValuesInNameTextbox(){
+        driver.findElement(nameTextbox).clear();
+    }
+    public void enterName(String name){
+        driver.findElement(nameTextbox).sendKeys(name);
+    }
+    public void clearValuesInContactNoTextbox(){
+        driver.findElement(contactNoTextbox).clear();
+    }
+    public void enterContactNo(String telNo){
+        driver.findElement(contactNoTextbox).sendKeys(telNo);
+    }
+    public void clickUpdateButton(){
+        driver.findElement(updateBtn).click();
+    }
+    public String getAlertText(){
+        return driver.switchTo().alert().getText();
+    }
+    public void clickOkAlert(){
+        driver.switchTo().alert().accept();
+    }
+    public String invalidMsgValidation(){
+        return driver.findElement(nameTextbox).getAttribute("validationMessage");
+    }
+
     public PMyProfile(WebDriver driver, CommonOp commonOpObj){
         this.driver = driver;
         this.commonOpObj = commonOpObj;
     }
 
-    public String verifyTitle(){
-        return driver.getTitle();
-    }
-
-    public void clearValuesInNameTextbox(){
-        driver.findElement(nameTextbox).clear();
-    }
-
-    public void enterName(String name){
-        driver.findElement(nameTextbox).sendKeys(name);
-    }
-
-    public void clearValuesInContactNoTextbox(){
-        driver.findElement(contactNoTextbox).clear();
-    }
-
-    public void enterContactNo(String telNo){
-        driver.findElement(contactNoTextbox).sendKeys(telNo);
-    }
-
-    public void clickUpdateButton(){
-        driver.findElement(updateBtn).click();
-    }
-
-    public String getAlertText(){
-        return driver.switchTo().alert().getText();
-    }
-
-    public void clickOkAlert(){
-        driver.switchTo().alert().accept();
-    }
-
-    public String invalidMsgValidation(){
-        return driver.findElement(nameTextbox).getAttribute("validationMessage");
-    }
-
-    //To write the status to test file..
     public void setTestResult(int row, int col){
         ExcelUtil.rowNumber = row;
         ExcelUtil.columnNumber = col;
     }
-
 }

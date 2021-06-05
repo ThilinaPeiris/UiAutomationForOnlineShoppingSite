@@ -20,8 +20,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class TPaymentPendingOrder extends BaseTest {
-
-    private static final Logger LOGGER = LogManager.getLogger(TShippingAddress.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(TPaymentPendingOrder.class.getName());
 
     private WebDriver driver;
     private CommonOp commonOpObj;
@@ -29,11 +28,9 @@ public class TPaymentPendingOrder extends BaseTest {
     private PLogin ploginObj;
     private PPaymentPendingOrder pPaymentPendingOrderObj;
 
-
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -46,7 +43,6 @@ public class TPaymentPendingOrder extends BaseTest {
             driver.manage().window().maximize();
 
             ExcelUtil.setExcelFileSheet("Payment Pending Order");
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,16 +59,15 @@ public class TPaymentPendingOrder extends BaseTest {
         ploginObj.clickLogin();
     }
 
-    //T15 - Verify Payment pending order records page
-    @Test
+    @Test(description = "PM_TC_15 - Verify Payment pending order records page")
     public void viewPaymentPendingOrderRecordsPage(){
-
         String pageTitle = ExcelUtil.getCellData(1, 1);
 
         pPaymentPendingOrderObj.setTestResult(1, 2);
 
         phomeObj.clickMyAccountTab();
         pPaymentPendingOrderObj.clickPaymentPendingOrderSideMenuBar();
+
         String title = pPaymentPendingOrderObj.verifyTitle();
         Assert.assertEquals(title, pageTitle);
     }
@@ -89,10 +84,8 @@ public class TPaymentPendingOrder extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
         driver.manage().deleteAllCookies();
         commonOpObj.Sleep(3000);
-
     }
 
     @AfterClass

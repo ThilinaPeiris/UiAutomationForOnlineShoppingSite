@@ -49,7 +49,6 @@ public class PForgotPW {
         return driver.findElement(contactNo).getAttribute("validationMessage");
     }
 
-    //to write the status to test file..
     public void setTestResult(int row, int col){
         ExcelUtil.rowNumber = row;
         ExcelUtil.columnNumber = col;

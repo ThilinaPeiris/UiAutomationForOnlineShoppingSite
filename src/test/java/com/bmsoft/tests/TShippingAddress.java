@@ -28,11 +28,9 @@ public class TShippingAddress extends BaseTest {
     private PLogin ploginObj;
     private PShippingAddress pShippingAddressObj;
 
-
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -53,7 +51,6 @@ public class TShippingAddress extends BaseTest {
 
     @BeforeMethod
     public void setUpMethod() {
-
         driver.get(baseUrl);
 
         phomeObj.clickLoginbtn();
@@ -62,10 +59,8 @@ public class TShippingAddress extends BaseTest {
         ploginObj.clickLogin();
     }
 
-    //T11 - Update shipping address with valid values
-    @Test
+    @Test(description = "PM_TC_11 - Update shipping address with valid values")
     public void updateShippingAddress(){
-
         String shippingAddressValue = ExcelUtil.getCellData(1,1);
         String shippingStateValue = ExcelUtil.getCellData(1, 2);
         String shippingCityValue = ExcelUtil.getCellData(1, 3);
@@ -82,10 +77,10 @@ public class TShippingAddress extends BaseTest {
         pShippingAddressObj.enterShippingCity(shippingCityValue);
         pShippingAddressObj.enterShippingPincode(shippingPincodeValue);
         pShippingAddressObj.clickUpdateButton();
+
         String alertText = pShippingAddressObj.getAlertText();
         pShippingAddressObj.clickOkAlert();
         Assert.assertEquals(alertMessage,alertText);
-
     }
 
     @AfterMethod
@@ -100,10 +95,8 @@ public class TShippingAddress extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
         driver.manage().deleteAllCookies();
         commonOpObj.Sleep(3000);
-
     }
 
     @AfterClass

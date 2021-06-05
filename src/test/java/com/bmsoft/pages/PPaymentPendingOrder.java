@@ -24,7 +24,6 @@ public class PPaymentPendingOrder {
         return driver.getTitle();
     }
 
-    //To write the status to test file..
     public void setTestResult(int row, int col){
         ExcelUtil.rowNumber = row;
         ExcelUtil.columnNumber = col;

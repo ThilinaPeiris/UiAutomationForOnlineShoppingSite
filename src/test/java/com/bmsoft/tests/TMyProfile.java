@@ -30,11 +30,9 @@ public class TMyProfile extends BaseTest {
     private PLogin ploginObj;
     private PMyProfile pmyProfileObj;
 
-
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -48,7 +46,6 @@ public class TMyProfile extends BaseTest {
 
             ExcelUtil.setExcelFileSheet("My Profile");
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,7 +53,6 @@ public class TMyProfile extends BaseTest {
 
     @BeforeMethod
     public void setUpMethod() {
-
         driver.get(baseUrl);
 
         phomeObj.clickLoginbtn();
@@ -65,10 +61,8 @@ public class TMyProfile extends BaseTest {
         ploginObj.clickLogin();
     }
 
-    //T02 - Verify my account page is visible
-    @Test
+    @Test(description = "PM_TC_02 - Verify my account page is visible")
     public void viewMyAccountPage(){
-
         String pageTitle = ExcelUtil.getCellData(1,3);
 
         pmyProfileObj.setTestResult(1, 6);
@@ -78,10 +72,8 @@ public class TMyProfile extends BaseTest {
         Assert.assertEquals(title, pageTitle);
     }
 
-    //T03 - Update my profile with valid values
-    @Test
+    @Test(description = "PM_TC_03 - Update my profile with valid values")
     public void updateMyProfileDetails(){
-
         String nameValue = ExcelUtil.getCellData(2,1);
         String contactNoValue = ExcelUtil.getCellData(2, 2);
         String alertMessage = ExcelUtil.getCellData(2, 4);
@@ -94,15 +86,14 @@ public class TMyProfile extends BaseTest {
         pmyProfileObj.clearValuesInContactNoTextbox();
         pmyProfileObj.enterContactNo(contactNoValue);
         pmyProfileObj.clickUpdateButton();
+
         String alertText = pmyProfileObj.getAlertText();
         pmyProfileObj.clickOkAlert();
         Assert.assertEquals(alertMessage,alertText);
     }
 
-    //T04 - Update my profile with empty values
-    @Test
+    @Test(description = "PM_TC_04 - Update my profile with empty values")
     public void updateMyProfileWithoutDetails(){
-
         String nameValue = ExcelUtil.getCellData(3,1);
         String contactNoValue = ExcelUtil.getCellData(3, 2);
         String formErrorMessage = ExcelUtil.getCellData(3, 5);
@@ -118,10 +109,8 @@ public class TMyProfile extends BaseTest {
         Assert.assertEquals(pmyProfileObj.invalidMsgValidation(),formErrorMessage);
     }
 
-    //T05 - Update my profile without name field
-    @Test
+    @Test(description = "PM_TC_05 - Update my profile without name field")
     public void updateMyProfileWithoutName(){
-
         String nameValue = ExcelUtil.getCellData(4,1);
         String contactNoValue = ExcelUtil.getCellData(4, 2);
         String formErrorMessage = ExcelUtil.getCellData(4, 5);
@@ -149,7 +138,6 @@ public class TMyProfile extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
         driver.manage().deleteAllCookies();
         commonOpObj.Sleep(3000);
     }
@@ -158,5 +146,4 @@ public class TMyProfile extends BaseTest {
     public void tearDownClass() {
         driver.quit();
     }
-
 }

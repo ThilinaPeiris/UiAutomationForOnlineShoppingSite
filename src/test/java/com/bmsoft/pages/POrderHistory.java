@@ -12,8 +12,6 @@ public class POrderHistory {
     private By orderHistorySideMenuBar = By.xpath("//a[@href='order-history.php']");
     private By orderFirstRecord = By.xpath("//*[@class=\"table table-bordered\"]/tbody/tr[1]");
     private By trackLink = By.linkText("Track");
-    private By orderTrackingDetailWindow = By.className("fontpink2");
-
 
     public POrderHistory(WebDriver driver, CommonOp commonOpObj){
         this.driver = driver;
@@ -33,10 +31,10 @@ public class POrderHistory {
     }
 
     public void clickTrackLink(){
-        String winHandleBefore = driver.getWindowHandle(); // Store the current window handle
+        String winHandleBefore = driver.getWindowHandle();
         driver.findElement(trackLink).click();
 
-        for(String winHandle : driver.getWindowHandles()){ // Switch to new window opened
+        for(String winHandle : driver.getWindowHandles()){
             driver.switchTo().window(winHandle);
         }
 
@@ -46,16 +44,12 @@ public class POrderHistory {
             System.out.println("Text is absent");
         }
 
-        driver.close(); // Close the new window
-
-        driver.switchTo().window(winHandleBefore); // Switch back to the original browser (first window)
+        driver.close();
+        driver.switchTo().window(winHandleBefore);
     }
 
-    //To write the status to test file..
     public void setTestResult(int row, int col){
         ExcelUtil.rowNumber = row;
         ExcelUtil.columnNumber = col;
     }
-
-
 }

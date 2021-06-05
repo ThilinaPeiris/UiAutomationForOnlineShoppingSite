@@ -9,7 +9,6 @@
     <test name="FunctionalTest">
         <classes>
             <class name="com.bmsoft.tests.TLogin"/>
-            <class name="com.bmsoft.tests.THome"/>
             <class name="com.bmsoft.tests.TForgotPW"/>
             <class name="com.bmsoft.tests.TSignUp"/>
             <class name="com.bmsoft.tests.TOrderTrack"/>

@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 public class TLeftNavigation extends BaseTest {
 
-    private static final Logger LOGGER = LogManager.getLogger(THome.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(TLeftNavigation.class.getName());
 
     private WebDriver driver;
     private CommonOp commonOpObj;
@@ -30,7 +30,6 @@ public class TLeftNavigation extends BaseTest {
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -39,7 +38,6 @@ public class TLeftNavigation extends BaseTest {
             phomeObj = new PHome(driver, commonOpObj);
             ploginObj = new PLogin(driver,commonOpObj);
             driver.manage().window().maximize();
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,16 +54,14 @@ public class TLeftNavigation extends BaseTest {
         ploginObj.clickLogin();
     }
 
-    //T15
-    @Test(priority = 1,description = "test case T15")
+    @Test(description = "C_TC_15 - Left navigation")
     public void tLeftNavigation() {
         phomeObj.selectHome();
         phomeObj.leftNavigation();
-        //assert
+
         String title = phomeObj.validateProductTitle();
         Assert.assertEquals(title,"Product Category");
     }
-
 
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
@@ -81,7 +77,6 @@ public class TLeftNavigation extends BaseTest {
         }
         driver.manage().deleteAllCookies();
         commonOpObj.Sleep(3000);
-
     }
 
     @AfterClass

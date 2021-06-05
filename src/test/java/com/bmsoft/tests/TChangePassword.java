@@ -30,11 +30,9 @@ public class TChangePassword extends BaseTest {
     private PLogin ploginObj;
     private PChangePassword pChangePasswordObj;
 
-
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -47,7 +45,6 @@ public class TChangePassword extends BaseTest {
             driver.manage().window().maximize();
 
             ExcelUtil.setExcelFileSheet("Change Password");
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,10 +61,8 @@ public class TChangePassword extends BaseTest {
         ploginObj.clickLogin();
     }
 
-    //T07 - Update change password with valid values
-    @Test
+    @Test(description = "PM_TC_07 - Update change password with valid values")
     public void changePassword(){
-
         String currentPwdValue = ExcelUtil.getCellData(1,1);
         String newPwdValue = ExcelUtil.getCellData(1, 2);
         String confirmPwdValue = ExcelUtil.getCellData(1, 3);
@@ -81,10 +76,10 @@ public class TChangePassword extends BaseTest {
         pChangePasswordObj.enterNewPassword(newPwdValue);
         pChangePasswordObj.enterConfirmPassword(confirmPwdValue);
         pChangePasswordObj.clickChangeButton();
+
         String alertText = pChangePasswordObj.getAlertText();
         pChangePasswordObj.clickOkAlert();
         Assert.assertEquals(alertMessage,alertText);
-
     }
 
     @AfterMethod
@@ -99,10 +94,8 @@ public class TChangePassword extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
         driver.manage().deleteAllCookies();
         commonOpObj.Sleep(3000);
-
     }
 
     @AfterClass

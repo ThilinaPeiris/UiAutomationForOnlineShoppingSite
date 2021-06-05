@@ -14,7 +14,6 @@ public class PBooks {
     private By imageNext = By.xpath("//a[@class='lb-next']");
     private By cart = By.xpath("//a[contains(text(),'ADD TO CART')]");
     private By wishlistHeart = By.xpath("//i[@class='fa fa-heart']");
-    private By searchField = By.xpath("//input[@class='search-field']");
 
     public PBooks(WebDriver driver, CommonOp commonOpObj) {
         this.driver = driver;
@@ -33,7 +32,6 @@ public class PBooks {
         driver.findElement(image).click();
     }
 
-    //starts with the second img so that's why
     public void clickImgNext() {
         for (int i = 2; i <= 4; i++) {
             driver.findElement(imageNext).click();

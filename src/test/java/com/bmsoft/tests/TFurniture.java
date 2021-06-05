@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class TFurniture extends BaseTest {
-    private static final Logger LOGGER = LogManager.getLogger(THome.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(TFurniture.class.getName());
 
     private WebDriver driver;
     private CommonOp commonOpObj;
@@ -33,7 +33,6 @@ public class TFurniture extends BaseTest {
     @BeforeClass
     public void setUpClass() {
         try {
-
             driver = SetupDriver.getDriver(driver, browser, baseUrl);
 
             driver.manage().timeouts().implicitlyWait(implicitWaitTimeout, TimeUnit.MILLISECONDS);
@@ -44,7 +43,6 @@ public class TFurniture extends BaseTest {
             pHomeObj = new PHome(driver, commonOpObj);
             driver.manage().window().maximize();
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,36 +51,33 @@ public class TFurniture extends BaseTest {
     @BeforeMethod
     public void setUpMethod() {
         driver.get(baseUrl);
-        //click login link
+
         pHomeObj.clickLoginbtn();
         ploginObj.enterEmailAddress(email);
         ploginObj.enterPassword(password);
         ploginObj.clickLogin();
 
     }
-    //add to cart from furniture category - T10
-    @Test(priority = 1,description = "test case T10")
-    public void taddtoCart() {
 
+    @Test(description = "C_TC_10 - Add to cart from furniture category")
+    public void taddtoCart() {
         pfurnitureObj.selectFurniture();
-        //addtocart
         pfurnitureObj.addtocartBtn();
+
         String addToCartAlert =  driver.switchTo().alert().getText();
         driver.switchTo().alert().accept();
         Assert.assertEquals("Product has been added to the cart",addToCartAlert);
-
     }
-    //add to wishlist from furniture category -T11
-    @Test(priority = 1,description = "test case T11")
-    public void taddtoWishlist() {
 
+    @Test(description = "C_TC_11 - Add to wishlist from furniture category")
+    public void taddtoWishlist() {
         pfurnitureObj.selectFurniture();
-        //add to wishlist
         pfurnitureObj.addtoWishListBtn();
+
         String title = pfurnitureObj.validateProductTitle();
         Assert.assertEquals(title,"My Wishlist");
-
     }
+
     @AfterMethod
     public void captureScreen(ITestResult result) throws IOException
     {
@@ -95,7 +90,6 @@ public class TFurniture extends BaseTest {
             FileUtils.copyFile(source,target);
             commonOpObj.Sleep(2000);
         }
-
         driver.manage().deleteAllCookies();
         commonOpObj.Sleep(3000);
     }
@@ -104,5 +98,4 @@ public class TFurniture extends BaseTest {
     public void tearDownClass() {
         driver.quit();
     }
-
 }
