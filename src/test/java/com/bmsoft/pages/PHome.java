@@ -1,6 +1,7 @@
 package com.bmsoft.pages;
 
 import com.bmsoft.utilities.CommonOp;
+import com.bmsoft.utilities.ExcelUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,82 +15,60 @@ public class PHome {
     private WebDriver driver;
     private CommonOp commonOpObj;
 
-    private By bmwCheckbox = By.id("bmwcheck");
-    private By benzCheckbox = By.id("benzcheck");
-    private By hondaCheckbox = By.id("hondacheck");
-    private By benzRadioBtn = By.id("benzradio");
-    private By selectCarselect = By.id("carselect");
-    private By selectmultiVals = By.id("multiple-select-example");
-    private By openNewWindowBtn = By.id("openwindow");
-    private By openNewTabBtn = By.id("opentab");
-    private By nameInputField = By.id("name");
-    private By alertbtn = By.id("alertbtn");
-    private By confirmbtn = By.id("confirmbtn");
-    private By mousehoverdropdown = By.id("mousehover");
-    private By mousehoverReloadBtn = By.xpath("//a[contains(text(),'Reload')]");
-    private By termsOfUSeLink = By.partialLinkText("Terms of Use");
+    private By loginBtn = By.xpath("//a[@href='login.php']");
+    private By myAccount = By.xpath("//a[@href='my-account.php']");
+    private By trackOrder = By.xpath("//span[contains(text(),'Track Order')]");
+    private By home = By.xpath("//a[contains(text(),'Home')]");
+    private By addtoCrtBtn = By.xpath("//div/a[@xpath='1']");
+    private By searchField = By.xpath("//input[@class='search-field']");
+    private By submitBtn = By.xpath("//button[@type='submit']");
+    private By leftNavBook = By.xpath("//nav/ul/li/a[@href='category.php?cid=3']");
 
     public PHome(WebDriver driver, CommonOp commonOpObj) {
         this.driver = driver;
         this.commonOpObj = commonOpObj;
     }
 
-    public void clickOnBmwCheckbox() {
-        driver.findElement(bmwCheckbox).click();
+    public void clickLoginbtn() {
+        driver.findElement(loginBtn).click();
     }
 
-    public void clickOnBenzCheckbox() {
-        driver.findElement(benzCheckbox).click();
+    public void clickTrackOrderBtn(){
+        driver.findElement(trackOrder).click();
     }
 
-    public void clickOnHondaCheckbox() {
-        driver.findElement(hondaCheckbox).click();
+    public String navigateOrderTrackPage(){
+        return driver.getTitle();
     }
 
-    public void clickOnBenzradiobtn() {
-        driver.findElement(benzRadioBtn).click();
+    public void clickMyAccountTab(){
+        driver.findElement(myAccount).click();
     }
 
-    public void setSelectCarselectHondaVal() {
-        Select selectcarselectdrpdown = new Select(driver.findElement(selectCarselect));
-        selectcarselectdrpdown.selectByVisibleText("Honda");
+    public void selectHome() {
+        driver.findElement(home).click();
     }
 
-    public void setSelectmultiVals() {
-        Select selectMultipleValsDropDown = new Select(driver.findElement(selectmultiVals));
-        selectMultipleValsDropDown.selectByValue("orange");
-        selectMultipleValsDropDown.selectByValue("peach");
+    public void addtoCartBtn(){
+        driver.findElement(addtoCrtBtn).click();
     }
 
-    public void clickOnOpenWindowBtn() {
-        driver.findElement(openNewWindowBtn).click();
+    public void searchField(String value){
+        driver.findElement(searchField).sendKeys(value);
+        driver.findElement(submitBtn).click();
     }
 
-    public void clickOnNewTabBtn() {
-        driver.findElement(openNewTabBtn).click();
+    public void leftNavigation(){
+        driver.findElement(leftNavBook).click();
     }
 
-    public void setNameInputField(String name) {
-        driver.findElement(nameInputField).sendKeys(name);
+    public String validateProductTitle(){
+        return driver.getTitle();
     }
 
-    public void clickOnAlertBtn() {
-        driver.findElement(alertbtn).click();
-    }
-
-    public void clickOnCOnfirmBtn() {
-        driver.findElement(confirmbtn).click();
-    }
-
-    public WebElement getMouseHoverOverEle() {
-        return driver.findElement(mousehoverdropdown);
-    }
-
-    public WebElement getMouseHoverOverReloadEle() {
-        return driver.findElement(mousehoverReloadBtn);
-    }
-
-    public void clickOnTermsOfUseLink() {
-        driver.findElement(termsOfUSeLink).click();
+    //to write the status to test file..
+    public void setTestResult(int row, int col){
+        ExcelUtil.rowNumber = row;
+        ExcelUtil.columnNumber = col;
     }
 }
