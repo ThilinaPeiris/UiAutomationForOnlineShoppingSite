@@ -47,6 +47,10 @@ public class CommonOp {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    public void waitUntilAlertIsPresent(long timeOut) {
+        WebDriverWait wait = new WebDriverWait(driver, timeOut);
+        wait.until(ExpectedConditions.alertIsPresent());
+    }
 
     /*public WebElement waitUntilElementClickableAndInvisibiltyOfLoader( By loader, By locator, long timeOut){
         WebDriverWait wait = new WebDriverWait(driver, timeOut);

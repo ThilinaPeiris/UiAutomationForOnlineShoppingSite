@@ -6,10 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.Select;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class PHome {
 
@@ -24,6 +20,8 @@ public class PHome {
     private By submitBtn = By.xpath("//button[@type='submit']");
     private By leftNavBook = By.xpath("//nav/ul/li/a[@href='category.php?cid=3']");
     private By randomProductAddToCart = By.xpath("//a[@href=\"index.php?page=product&action=add&id=1\"]");
+    private By randomProductsDesc = By.xpath("//a[@href=\"index.php?page=product&action=add&id=1\"]" +
+            "/parent::div/preceding-sibling::div[1]");
 
     public PHome(WebDriver driver, CommonOp commonOpObj) {
         this.driver = driver;
@@ -73,5 +71,23 @@ public class PHome {
     public void setTestResult(int row, int col){
         ExcelUtil.rowNumber = row;
         ExcelUtil.columnNumber = col;
+    }
+
+    public String getRandomProductName(){
+        String productName = driver.findElement(randomProductsDesc).
+                findElement(By.className("name")).getText().trim();
+        return productName;
+    }
+
+    public String getRandomProductPrice(){
+        String productPrice = driver.findElement(randomProductsDesc).findElement(By.cssSelector("div.product-price span.price"))
+                .getText().trim();
+        return productPrice;
+    }
+
+    public void scrollIntoProduct(){
+        WebElement randomProduct = driver.findElement(randomProductAddToCart);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(randomProduct).build().perform();
     }
 }

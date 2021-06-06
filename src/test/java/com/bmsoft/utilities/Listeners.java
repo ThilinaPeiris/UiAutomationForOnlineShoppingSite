@@ -38,7 +38,7 @@ public class Listeners extends TestListenerAdapter
         extent.attachReporter(extentSparkReporter);
         extent.setSystemInfo("Host name","localhost");
         extent.setSystemInfo("Environemnt","QA");
-        extent.setSystemInfo("user","Bhagya Peiris");
+        extent.setSystemInfo("user","Mini Project Group 2");
 
         extentSparkReporter.config().setDocumentTitle("Automation Report");
         extentSparkReporter.config().setReportName("Functional Testing");

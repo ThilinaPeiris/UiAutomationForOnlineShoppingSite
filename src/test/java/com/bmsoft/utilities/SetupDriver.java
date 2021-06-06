@@ -2,6 +2,7 @@ package com.bmsoft.utilities;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.FileInputStream;
@@ -22,8 +23,6 @@ public class SetupDriver {
 
         if (isWindows()) {
             if (browser.equalsIgnoreCase("firefox")) {
-                //FirefoxOptions options = new FirefoxOptions();
-                //options.setCapability(CapabilityType.BROWSER_VERSION, 69.0);
                 System.setProperty("webdriver.gecko.driver", props.getProperty(Constants.FIREFOX_DRIVER_WIN));
                 driver = new FirefoxDriver();
             }
@@ -31,13 +30,9 @@ public class SetupDriver {
                 System.setProperty("webdriver.chrome.driver", props.getProperty(Constants.CHROME_DRIVER_WIN));
                 driver = new ChromeDriver();
             }
-            if (browser.equalsIgnoreCase("iexplore")) {
-                /*InternetExplorerOptions options = new InternetExplorerOptions();
-                options.introduceFlakinessByIgnoringSecurityDomains();
-                options.ignoreZoomSettings();
-
-                System.setProperty("webdriver.ie.driver", props.getProperty(Constants.IE_DRIVER_WIN));
-                driver = new InternetExplorerDriver(options);*/
+            if (browser.equalsIgnoreCase("msedge")) {
+                System.setProperty("webdriver.edge.driver", props.getProperty(Constants.EDGE_DRIVER_WIN));
+                driver = new EdgeDriver();
             }
 
         } else if (isMac()) {
@@ -66,8 +61,7 @@ public class SetupDriver {
                 driver = new ChromeDriver();
             }
         }
-        //driver.get(baseUrl);
-        //driver.manage().window().maximize();
+
         driver.manage().window().maximize();
         return driver;
     }
